@@ -1,0 +1,21 @@
+{
+	"id": {
+		"type": "integer"
+	},
+	"creation_date": {
+		"type": "date"
+	},
+	"title": {
+		"type": "string"
+	},
+	"balance": {
+		"custom": 1,
+		"type": "integer"
+	},
+	"modification_date": {
+		"type": "date"
+	},
+	"domain_id": {
+		"type": "integer"
+	}
+}

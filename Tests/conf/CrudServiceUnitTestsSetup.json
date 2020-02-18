@@ -1,0 +1,10 @@
+{
+	"table-name": "records",
+	"fields": {
+		"id" : {
+			"type" : "integer"
+		}
+	},
+	"entity-name": "record",
+	"layout": []
+}
