@@ -1,0 +1,501 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "6600379fb7146053b5deabf9f43751b0",
+    "packages": [
+        {
+            "name": "mezon/conf",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexdodonov/mezon-conf.git",
+                "reference": "63b9100effd581fb2f3ea9f9e9855254d1bad151"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-conf/zipball/63b9100effd581fb2f3ea9f9e9855254d1bad151",
+                "reference": "63b9100effd581fb2f3ea9f9e9855254d1bad151",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mezon\\Conf\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dodonov Alexey",
+                    "email": "alexey@dodonov.pro",
+                    "homepage": "http://gdzone.ru",
+                    "role": "Founder"
+                }
+            ],
+            "description": "Small conf routine",
+            "homepage": "https://github.com/alexdodonov/mezon-conf",
+            "time": "2020-02-24T10:08:55+00:00"
+        },
+        {
+            "name": "mezon/custom-client",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexdodonov/mezon-custom-client.git",
+                "reference": "a221ea2ed04169e9d847635edcef3cd422f745a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-custom-client/zipball/a221ea2ed04169e9d847635edcef3cd422f745a4",
+                "reference": "a221ea2ed04169e9d847635edcef3cd422f745a4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mezon\\CustomClient\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dodonov Alexey",
+                    "email": "alexey@dodonov.pro",
+                    "homepage": "http://gdzone.ru",
+                    "role": "Founder"
+                }
+            ],
+            "description": "Small custom client routine",
+            "homepage": "https://github.com/alexdodonov/mezon-custom-client",
+            "time": "2020-02-17T19:34:31+00:00"
+        },
+        {
+            "name": "mezon/dns-client",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexdodonov/mezon-dns-client.git",
+                "reference": "0b5ca762a51abe13332c3338e67ef0a04dc58650"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-dns-client/zipball/0b5ca762a51abe13332c3338e67ef0a04dc58650",
+                "reference": "0b5ca762a51abe13332c3338e67ef0a04dc58650",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mezon\\DnsClient\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dodonov Alexey",
+                    "email": "alexey@dodonov.pro",
+                    "homepage": "http://gdzone.ru",
+                    "role": "Founder"
+                }
+            ],
+            "description": "Small dns-client script",
+            "homepage": "https://github.com/alexdodonov/mezon-dns-client",
+            "time": "2020-02-18T21:20:37+00:00"
+        },
+        {
+            "name": "mezon/functional",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexdodonov/mezon-functional.git",
+                "reference": "3cae5c7de9beabadadf39efc806caf67d5d1fb85"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-functional/zipball/3cae5c7de9beabadadf39efc806caf67d5d1fb85",
+                "reference": "3cae5c7de9beabadadf39efc806caf67d5d1fb85",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mezon\\Functional\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dodonov Alexey",
+                    "email": "alexey@dodonov.pro",
+                    "homepage": "http://gdzone.ru",
+                    "role": "Founder"
+                }
+            ],
+            "description": "Small and fast framework for functional programming",
+            "homepage": "https://github.com/alexdodonov/mezon-functional",
+            "time": "2020-02-25T15:31:54+00:00"
+        },
+        {
+            "name": "mezon/gui",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexdodonov/mezon-gui.git",
+                "reference": "2fbc50c938217a429fc21626251c97fb94eb1f42"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-gui/zipball/2fbc50c938217a429fc21626251c97fb94eb1f42",
+                "reference": "2fbc50c938217a429fc21626251c97fb94eb1f42",
+                "shasum": ""
+            },
+            "require": {
+                "mezon/functional": ">=1.0.0",
+                "mezon/list-builder-adapter": "^1.0.0",
+                "mezon/security": ">=1.0.0",
+                "mezon/template-engine": ">=1.0.0",
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mezon\\Gui\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dodonov Alexey",
+                    "email": "alexey@dodonov.pro",
+                    "homepage": "http://gdzone.ru",
+                    "role": "Founder"
+                }
+            ],
+            "description": "Small gui script",
+            "homepage": "https://github.com/alexdodonov/mezon-gui",
+            "time": "2020-02-25T20:04:20+00:00"
+        },
+        {
+            "name": "mezon/list-builder-adapter",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexdodonov/mezon-list-builder-adapter.git",
+                "reference": "2be695faf3789b080e5813d25acf7ab0f70ba6ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-list-builder-adapter/zipball/2be695faf3789b080e5813d25acf7ab0f70ba6ff",
+                "reference": "2be695faf3789b080e5813d25acf7ab0f70ba6ff",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mezon\\Gui\\ListBuilder\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dodonov Alexey",
+                    "email": "alexey@dodonov.pro",
+                    "homepage": "http://gdzone.ru",
+                    "role": "Founder"
+                }
+            ],
+            "description": "List builder adapter interface",
+            "homepage": "https://github.com/alexdodonov/mezon-list-builder-adapter",
+            "time": "2020-02-25T19:39:44+00:00"
+        },
+        {
+            "name": "mezon/pdocrud",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexdodonov/mezon-pdocrud.git",
+                "reference": "d048081a77e3acf3cc93f0428828caf973138652"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-pdocrud/zipball/d048081a77e3acf3cc93f0428828caf973138652",
+                "reference": "d048081a77e3acf3cc93f0428828caf973138652",
+                "shasum": ""
+            },
+            "require": {
+                "mezon/conf": "^1.0.0",
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mezon\\PdoCrud\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dodonov Alexey",
+                    "email": "alexey@dodonov.pro",
+                    "homepage": "http://gdzone.ru",
+                    "role": "Founder"
+                }
+            ],
+            "description": "Simple PDO wrapper",
+            "homepage": "https://github.com/alexdodonov/mezon-pdocrud",
+            "time": "2020-02-19T19:22:11+00:00"
+        },
+        {
+            "name": "mezon/rest-exception",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexdodonov/mezon-rest-exception.git",
+                "reference": "0c3303e628c7b4514b39fe90cca1990cece2e2ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-rest-exception/zipball/0c3303e628c7b4514b39fe90cca1990cece2e2ea",
+                "reference": "0c3303e628c7b4514b39fe90cca1990cece2e2ea",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mezon\\Rest\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dodonov Alexey",
+                    "email": "alexey@dodonov.pro",
+                    "homepage": "http://gdzone.ru",
+                    "role": "Founder"
+                }
+            ],
+            "description": "Small rest-exception script",
+            "homepage": "https://github.com/alexdodonov/mezon-rest-exception",
+            "time": "2020-02-19T20:34:07+00:00"
+        },
+        {
+            "name": "mezon/router",
+            "version": "1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexdodonov/mezon-router.git",
+                "reference": "d1349a430ab6bd64a66f89adf18e074531cb033d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-router/zipball/d1349a430ab6bd64a66f89adf18e074531cb033d",
+                "reference": "d1349a430ab6bd64a66f89adf18e074531cb033d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mezon\\Router\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dodonov Alexey",
+                    "email": "alexey@dodonov.pro",
+                    "homepage": "http://gdzone.ru",
+                    "role": "Founder"
+                }
+            ],
+            "description": "Small and fast routing framework",
+            "homepage": "https://github.com/alexdodonov/mezon-router",
+            "time": "2020-02-19T07:44:28+00:00"
+        },
+        {
+            "name": "mezon/security",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexdodonov/mezon-security.git",
+                "reference": "b619541d0cd45ae26850a255a451e5b332e265f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-security/zipball/b619541d0cd45ae26850a255a451e5b332e265f0",
+                "reference": "b619541d0cd45ae26850a255a451e5b332e265f0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mezon\\Security\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dodonov Alexey",
+                    "email": "alexey@dodonov.pro",
+                    "homepage": "http://gdzone.ru",
+                    "role": "Founder"
+                }
+            ],
+            "description": "Small security script",
+            "homepage": "https://github.com/alexdodonov/mezon-security",
+            "time": "2020-02-17T19:55:10+00:00"
+        },
+        {
+            "name": "mezon/service",
+            "version": "1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexdodonov/mezon-service.git",
+                "reference": "672e31818dfba2cc39ee643a30f165cbee9ad337"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-service/zipball/672e31818dfba2cc39ee643a30f165cbee9ad337",
+                "reference": "672e31818dfba2cc39ee643a30f165cbee9ad337",
+                "shasum": ""
+            },
+            "require": {
+                "mezon/custom-client": "^1.0.0",
+                "mezon/dns-client": "^1.0.0",
+                "mezon/functional": "^1.0.0",
+                "mezon/gui": "^1.0.0",
+                "mezon/pdocrud": "^1.0.1",
+                "mezon/rest-exception": "^1.0.0",
+                "mezon/router": "^1.0.0",
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mezon\\Service\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dodonov Alexey",
+                    "email": "alexey@dodonov.pro",
+                    "homepage": "http://gdzone.ru",
+                    "role": "Founder"
+                }
+            ],
+            "description": "Small service script",
+            "homepage": "https://github.com/alexdodonov/mezon-service",
+            "time": "2020-02-24T11:07:21+00:00"
+        },
+        {
+            "name": "mezon/template-engine",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexdodonov/mezon-template-engine.git",
+                "reference": "152bb2017495a23bf697faff92e851ad299e21fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-template-engine/zipball/152bb2017495a23bf697faff92e851ad299e21fd",
+                "reference": "152bb2017495a23bf697faff92e851ad299e21fd",
+                "shasum": ""
+            },
+            "require": {
+                "mezon/functional": "^1.0",
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mezon\\TemplateEngine\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dodonov Alexey",
+                    "email": "alexey@dodonov.pro",
+                    "homepage": "http://gdzone.ru",
+                    "role": "Founder"
+                }
+            ],
+            "description": "https://github.com/alexdodonov/mezon-template-engine",
+            "homepage": "https://github.com/alexdodonov/mezon-template-engine",
+            "time": "2020-02-13T21:30:46+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": true,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.2.0"
+    },
+    "platform-dev": []
+}

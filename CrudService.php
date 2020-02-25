@@ -81,8 +81,11 @@ class CrudService extends \Mezon\Service\Service
      */
     protected function getFieldsFromConfig()
     {
-        if (file_exists('./conf/fields.json')) {
-            return json_decode(file_get_contents('./conf/fields.json'), true);
+        $reflector = new \ReflectionClass(get_class($this));
+        $classPath = dirname($reflector->getFileName());
+
+        if (file_exists($classPath.'/conf/fields.json')) {
+            return json_decode(file_get_contents($classPath.'/conf/fields.json'), true);
         }
 
         throw (new \Exception('fields.json was not found'));
