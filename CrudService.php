@@ -24,28 +24,29 @@ class CrudService extends \Mezon\Service\Service
      *
      * @param array $entity
      *            Entity description
-     * @param mixed $serviceTransport
-     *            Service's transport, defaulted to \Mezon\Service\ServiceRestTransport::class
-     * @param mixed $securityProvider
-     *            Service's security provider, defaulted to \Mezon\Service\ServiceMockSecurityProvider::class
      * @param mixed $serviceLogic
      *            Service's logic, defaulted to \Mezon\CrudService\CrudServiceLogic::class
      * @param mixed $serviceModel
      *            Service's model, defaulted to \Mezon\CrudService\CrudServiceModel::class
+     * @param mixed $securityProvider
+     *            Service's security provider, defaulted to \Mezon\Service\ServiceMockSecurityProvider::class
+     * @param mixed $serviceTransport
+     *            Service's transport, defaulted to \Mezon\Service\ServiceRestTransport::class
      */
     public function __construct(
         array $entity,
-        $serviceTransport = \Mezon\Service\ServiceRestTransport\ServiceRestTransport::class,
-        $securityProvider = \Mezon\Service\ServiceMockSecurityProvider::class,
         $serviceLogic = \Mezon\CrudService\CrudServiceLogic::class,
-        $serviceModel = \Mezon\CrudService\CrudServiceModel::class)
+        $serviceModel = \Mezon\CrudService\CrudServiceModel::class,
+        $securityProvider = \Mezon\Service\ServiceMockSecurityProvider::class,
+        $serviceTransport = \Mezon\Service\ServiceRestTransport\ServiceRestTransport::class)
     {
         try {
             parent::__construct(
-                $serviceTransport,
-                $securityProvider,
                 $serviceLogic,
-                $this->initModel($entity, $serviceModel));
+                $this->initModel($entity, $serviceModel),
+                $securityProvider,
+                $serviceTransport
+            );
 
             $this->initCrudRoutes();
         } catch (\Exception $e) {
@@ -84,8 +85,8 @@ class CrudService extends \Mezon\Service\Service
         $reflector = new \ReflectionClass(get_class($this));
         $classPath = dirname($reflector->getFileName());
 
-        if (file_exists($classPath.'/conf/fields.json')) {
-            return json_decode(file_get_contents($classPath.'/conf/fields.json'), true);
+        if (file_exists($classPath . '/conf/fields.json')) {
+            return json_decode(file_get_contents($classPath . '/conf/fields.json'), true);
         }
 
         throw (new \Exception('fields.json was not found'));
@@ -101,9 +102,18 @@ class CrudService extends \Mezon\Service\Service
         $this->serviceTransport->addRoute('/exact/list/[il:ids]/', 'exactList', 'GET');
         $this->serviceTransport->addRoute('/exact/[i:id]/', 'exact', 'GET');
         $this->serviceTransport->addRoute('/fields/', 'fields', 'GET');
-        $this->serviceTransport->addRoute('/delete/[i:id]/', 'deleteRecord', ['POST','DELETE']);
-        $this->serviceTransport->addRoute('/delete/', 'deleteFiltered', ['POST','DELETE']);
-        $this->serviceTransport->addRoute('/create/', 'createRecord', ['POST','PUT']);
+        $this->serviceTransport->addRoute('/delete/[i:id]/', 'deleteRecord', [
+            'POST',
+            'DELETE'
+        ]);
+        $this->serviceTransport->addRoute('/delete/', 'deleteFiltered', [
+            'POST',
+            'DELETE'
+        ]);
+        $this->serviceTransport->addRoute('/create/', 'createRecord', [
+            'POST',
+            'PUT'
+        ]);
         $this->serviceTransport->addRoute('/update/[i:id]/', 'updateRecord', 'POST');
         $this->serviceTransport->addRoute('/new/from/[s:date]/', 'newRecordsSince', 'GET');
         $this->serviceTransport->addRoute('/records/count/', 'recordsCount', 'GET');

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6600379fb7146053b5deabf9f43751b0",
+    "content-hash": "9b284a11700e23f717045fd6d8c10aa0",
     "packages": [
         {
             "name": "mezon/conf",
@@ -246,16 +246,16 @@
         },
         {
             "name": "mezon/pdocrud",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-pdocrud.git",
-                "reference": "d048081a77e3acf3cc93f0428828caf973138652"
+                "reference": "13225752ae41f26f0c7657db91f345b7192e5fac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-pdocrud/zipball/d048081a77e3acf3cc93f0428828caf973138652",
-                "reference": "d048081a77e3acf3cc93f0428828caf973138652",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-pdocrud/zipball/13225752ae41f26f0c7657db91f345b7192e5fac",
+                "reference": "13225752ae41f26f0c7657db91f345b7192e5fac",
                 "shasum": ""
             },
             "require": {
@@ -282,7 +282,7 @@
             ],
             "description": "Simple PDO wrapper",
             "homepage": "https://github.com/alexdodonov/mezon-pdocrud",
-            "time": "2020-02-19T19:22:11+00:00"
+            "time": "2020-02-26T07:04:51+00:00"
         },
         {
             "name": "mezon/rest-exception",
@@ -403,16 +403,16 @@
         },
         {
             "name": "mezon/service",
-            "version": "1.0.6",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-service.git",
-                "reference": "672e31818dfba2cc39ee643a30f165cbee9ad337"
+                "reference": "cb5d21d5e2a50ff6f410f1831c1154b690e8c722"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-service/zipball/672e31818dfba2cc39ee643a30f165cbee9ad337",
-                "reference": "672e31818dfba2cc39ee643a30f165cbee9ad337",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-service/zipball/cb5d21d5e2a50ff6f410f1831c1154b690e8c722",
+                "reference": "cb5d21d5e2a50ff6f410f1831c1154b690e8c722",
                 "shasum": ""
             },
             "require": {
@@ -445,20 +445,20 @@
             ],
             "description": "Small service script",
             "homepage": "https://github.com/alexdodonov/mezon-service",
-            "time": "2020-02-24T11:07:21+00:00"
+            "time": "2020-02-26T16:01:21+00:00"
         },
         {
             "name": "mezon/template-engine",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-template-engine.git",
-                "reference": "152bb2017495a23bf697faff92e851ad299e21fd"
+                "reference": "86dcf12fe4d88e4f75c1fad35640748ab57c7e19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-template-engine/zipball/152bb2017495a23bf697faff92e851ad299e21fd",
-                "reference": "152bb2017495a23bf697faff92e851ad299e21fd",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-template-engine/zipball/86dcf12fe4d88e4f75c1fad35640748ab57c7e19",
+                "reference": "86dcf12fe4d88e4f75c1fad35640748ab57c7e19",
                 "shasum": ""
             },
             "require": {
@@ -485,7 +485,7 @@
             ],
             "description": "https://github.com/alexdodonov/mezon-template-engine",
             "homepage": "https://github.com/alexdodonov/mezon-template-engine",
-            "time": "2020-02-13T21:30:46+00:00"
+            "time": "2020-02-25T21:18:55+00:00"
         }
     ],
     "packages-dev": [],

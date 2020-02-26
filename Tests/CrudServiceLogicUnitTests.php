@@ -19,129 +19,14 @@ namespace Mezon\CrudService\Tests;
 class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTests
 {
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct(\Mezon\CrudService\CrudServiceLogic::class);
-    }
+    use \Mezon\CrudService\Tests\CrudServiceLogicTestsTrait;
 
     /**
-     * Method returns service model
+     * Testing class name
      *
-     * @param array $methods
-     *            Methods to be mocked
-     * @return object Service model
+     * @var string
      */
-    protected function getServiceModelMock(array $methods = [
-        'lastRecords',
-        'recordsCount',
-        'deleteFiltered',
-        'insertBasicFields',
-        'getSimpleRecords',
-        'getConnection',
-        'recordsCountByField',
-        'newRecordsSince',
-        'updateBasicFields',
-        'setFieldForObject',
-        'hasField',
-        'getFields'
-    ])
-    {
-        return $this->getMockBuilder(\Mezon\CrudService\CrudServiceModel::class)
-            ->setConstructorArgs([
-            [
-                'id' => [
-                    'type' => 'integer'
-                ],
-                'domain_id' => [
-                    'type' => 'integer'
-                ],
-                'creation_date' => [
-                    'type' => 'date'
-                ]
-            ],
-            'record'
-        ])
-            ->setMethods($methods)
-            ->getMock();
-    }
-
-    /**
-     * Returning json file content
-     *
-     * @param string $fileName
-     *            File name
-     * @return array json decoded countent of the file
-     */
-    protected function jsonData(string $fileName): array
-    {
-        return json_decode(file_get_contents(__DIR__ . '/conf/' . $fileName . '.json'), true);
-    }
-
-    /**
-     * Method creates full functional CrudServiceLogic object
-     *
-     * @param mixed $model
-     *            List of models or single model
-     * @return \Mezon\CrudService\CrudServiceLogic object
-     */
-    protected function getServiceLogic($model): \Mezon\CrudService\CrudServiceLogic
-    {
-        $transport = new \Mezon\Service\ServiceConsoleTransport\ServiceConsoleTransport();
-
-        return new \Mezon\CrudService\CrudServiceLogic($transport->paramsFetcher, new \Mezon\Service\ServiceMockSecurityProvider(), $model);
-    }
-
-    /**
-     * Method creates mock of the CrudServiceLogic object
-     *
-     * @param mixed $model
-     *            List of models or single model
-     * @return object mock object
-     */
-    protected function getServiceLogicMock($model): object
-    {
-        $transport = new \Mezon\Service\ServiceConsoleTransport\ServiceConsoleTransport();
-
-        return $this->getMockBuilder(\Mezon\CrudService\CrudServiceLogic::class)
-            ->setConstructorArgs([
-            $transport->paramsFetcher,
-            new \Mezon\Service\ServiceMockSecurityProvider(),
-            $model
-        ])
-            ->setMethods([
-            'getSelfIdValue',
-            'hasPermit'
-        ])
-            ->getMock();
-    }
-
-    /**
-     * Method creates service logic for list methods testing
-     */
-    protected function setupLogicForListMethodsTesting()
-    {
-        $connection = $this->getMockBuilder(\Mezon\PdoCrud\PdoCrud::class)
-            ->disableOriginalConstructor()
-            ->setMethods([
-            'select'
-        ])
-            ->getMock();
-        $connection->method('select')->willReturn([
-            [
-                'field_name' => 'balance',
-                'field_value' => 100
-            ]
-        ]);
-
-        $serviceModel = $this->getServiceModelMock();
-        $serviceModel->method('getSimpleRecords')->willReturn($this->jsonData('GetSimpleRecords'));
-        $serviceModel->method('getConnection')->willReturn($connection);
-
-        return $this->getServiceLogic($serviceModel);
-    }
+    protected $className = \Mezon\CrudService\CrudServiceLogic::class;
 
     /**
      * Testing getting amount of records
@@ -250,7 +135,9 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     public function testConstruct(): void
     {
         $serviceTransport = new \Mezon\Service\ServiceHttpTransport\ServiceHttpTransport();
-        $serviceLogic = new \Mezon\CrudService\CrudServiceLogic($serviceTransport->getParamsFetcher(), new \Mezon\Service\ServiceMockSecurityProvider());
+        $serviceLogic = new \Mezon\CrudService\CrudServiceLogic(
+            $serviceTransport->getParamsFetcher(),
+            new \Mezon\Service\ServiceMockSecurityProvider());
 
         $this->assertInstanceOf(\Mezon\Service\ServiceRequestParamsInterface::class, $serviceLogic->getParamsFetcher());
         $this->assertInstanceOf(\Mezon\Service\ServiceMockSecurityProvider::class, $serviceLogic->getSecurityProvider());
