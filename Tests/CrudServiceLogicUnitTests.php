@@ -370,4 +370,26 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
         $this->assertTrue(is_array($result));
         $this->assertTrue(is_array($result['fields']));
     }
+
+    /**
+     * Testing 'exact' method
+     */
+    public function testExact(): void
+    {
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->method('fetchRecordsByIds')->willReturn([
+            [
+                'id' => 1
+            ]
+        ]);
+        $_GET['id'] = 1;
+        $serviceLogic = $this->getServiceLogicMock($serviceModel);
+
+        // test body
+        $result = $serviceLogic->exact();
+
+        // assertions
+        $this->assertEquals(1, $result['id']);
+    }
 }

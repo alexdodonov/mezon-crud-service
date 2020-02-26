@@ -279,9 +279,9 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
     }
 
     /**
-     * Method returns exact record from the table.
+     * Method returns exact record from the table
      *
-     * @return array Exact record.
+     * @return array Exact record
      */
     public function exact()
     {

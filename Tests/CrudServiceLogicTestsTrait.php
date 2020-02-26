@@ -29,7 +29,8 @@ trait CrudServiceLogicTestsTrait
             'updateBasicFields',
             'setFieldForObject',
             'hasField',
-            'getFields'
+            'getFields',
+            'fetchRecordsByIds'
         ])
     {
         return $this->getMockBuilder(\Mezon\CrudService\CrudServiceModel::class)
