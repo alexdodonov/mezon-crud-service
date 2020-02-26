@@ -34,37 +34,36 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
      *            Methods to be mocked
      * @return object Service model
      */
-    protected function getServiceModelMock(
-        array $methods = [
-            'lastRecords',
-            'recordsCount',
-            'deleteFiltered',
-            'insertBasicFields',
-            'getSimpleRecords',
-            'getConnection',
-            'recordsCountByField',
-            'newRecordsSince',
-            'updateBasicFields',
-            'setFieldForObject',
-            'hasField'
-        ])
+    protected function getServiceModelMock(array $methods = [
+        'lastRecords',
+        'recordsCount',
+        'deleteFiltered',
+        'insertBasicFields',
+        'getSimpleRecords',
+        'getConnection',
+        'recordsCountByField',
+        'newRecordsSince',
+        'updateBasicFields',
+        'setFieldForObject',
+        'hasField',
+        'getFields'
+    ])
     {
         return $this->getMockBuilder(\Mezon\CrudService\CrudServiceModel::class)
-            ->setConstructorArgs(
+            ->setConstructorArgs([
             [
-                [
-                    'id' => [
-                        'type' => 'integer'
-                    ],
-                    'domain_id' => [
-                        'type' => 'integer'
-                    ],
-                    'creation_date' => [
-                        'type' => 'date'
-                    ]
+                'id' => [
+                    'type' => 'integer'
                 ],
-                'record'
-            ])
+                'domain_id' => [
+                    'type' => 'integer'
+                ],
+                'creation_date' => [
+                    'type' => 'date'
+                ]
+            ],
+            'record'
+        ])
             ->setMethods($methods)
             ->getMock();
     }
@@ -92,10 +91,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     {
         $transport = new \Mezon\Service\ServiceConsoleTransport\ServiceConsoleTransport();
 
-        return new \Mezon\CrudService\CrudServiceLogic(
-            $transport->paramsFetcher,
-            new \Mezon\Service\ServiceMockSecurityProvider(),
-            $model);
+        return new \Mezon\CrudService\CrudServiceLogic($transport->paramsFetcher, new \Mezon\Service\ServiceMockSecurityProvider(), $model);
     }
 
     /**
@@ -110,12 +106,11 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
         $transport = new \Mezon\Service\ServiceConsoleTransport\ServiceConsoleTransport();
 
         return $this->getMockBuilder(\Mezon\CrudService\CrudServiceLogic::class)
-            ->setConstructorArgs(
-            [
-                $transport->paramsFetcher,
-                new \Mezon\Service\ServiceMockSecurityProvider(),
-                $model
-            ])
+            ->setConstructorArgs([
+            $transport->paramsFetcher,
+            new \Mezon\Service\ServiceMockSecurityProvider(),
+            $model
+        ])
             ->setMethods([
             'getSelfIdValue',
             'hasPermit'
@@ -151,7 +146,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Testing getting amount of records
      */
-    public function testRecordsCount1()
+    public function testRecordsCount1(): void
     {
         // setup
         $serviceModel = $this->getServiceModelMock();
@@ -169,7 +164,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Testing getting amount of records
      */
-    public function testRecordsCount0()
+    public function testRecordsCount0(): void
     {
         // setup
         $serviceModel = $this->getServiceModelMock();
@@ -187,7 +182,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Method tests last N records returning
      */
-    public function testLastRecords()
+    public function testLastRecords(): void
     {
         // setup
         $serviceModel = $this->getServiceModelMock();
@@ -207,7 +202,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Testing getting amount of records
      */
-    public function testRecordsCountByExistingField()
+    public function testRecordsCountByExistingField(): void
     {
         // setup
         $serviceModel = $this->getServiceModelMock();
@@ -233,7 +228,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Testing getting amount of records.
      */
-    public function testRecordsCountByNotExistingField()
+    public function testRecordsCountByNotExistingField(): void
     {
         // setup
         $serviceModel = $this->getServiceModelMock();
@@ -252,12 +247,10 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Testing constructor.
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $serviceTransport = new \Mezon\Service\ServiceHttpTransport\ServiceHttpTransport();
-        $serviceLogic = new \Mezon\CrudService\CrudServiceLogic(
-            $serviceTransport->getParamsFetcher(),
-            new \Mezon\Service\ServiceMockSecurityProvider());
+        $serviceLogic = new \Mezon\CrudService\CrudServiceLogic($serviceTransport->getParamsFetcher(), new \Mezon\Service\ServiceMockSecurityProvider());
 
         $this->assertInstanceOf(\Mezon\Service\ServiceRequestParamsInterface::class, $serviceLogic->getParamsFetcher());
         $this->assertInstanceOf(\Mezon\Service\ServiceMockSecurityProvider::class, $serviceLogic->getSecurityProvider());
@@ -266,7 +259,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Testing records list generation
      */
-    public function testListRecord()
+    public function testListRecord(): void
     {
         // setup
         $serviceLogic = $this->setupLogicForListMethodsTesting();
@@ -281,7 +274,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Testing domain_id fetching
      */
-    public function testGetDomainIdCrossDomainDisabled()
+    public function testGetDomainIdCrossDomainDisabled(): void
     {
         // setup
         $serviceModel = $this->getServiceModelMock();
@@ -302,7 +295,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Testing domain_id fetching
      */
-    public function testGetDomainIdCrossDomainEnabled()
+    public function testGetDomainIdCrossDomainEnabled(): void
     {
         // setup
         $serviceModel = $this->getServiceModelMock();
@@ -320,7 +313,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Testing newRecordsSince method for invalid
      */
-    public function testNewRecordsSinceInvalid()
+    public function testNewRecordsSinceInvalid(): void
     {
         // setup
         $serviceModel = $this->getServiceModelMock();
@@ -337,7 +330,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Testing newRecordsSince method
      */
-    public function testNewRecordsSince()
+    public function testNewRecordsSince(): void
     {
         // setup
         $serviceModel = $this->getServiceModelMock();
@@ -358,11 +351,14 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Testing 'updateRecord' method
      */
-    public function testUpdateRecord()
+    public function testUpdateRecord(): void
     {
         // setup
         $fieldName = 'record-title';
-        $serviceModel = $this->getServiceModelMock(['updateBasicFields','setFieldForObject']);
+        $serviceModel = $this->getServiceModelMock([
+            'updateBasicFields',
+            'setFieldForObject'
+        ]);
         $serviceModel->method('updateBasicFields')->willReturn([
             $fieldName => 'Record title'
         ]);
@@ -385,7 +381,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Method tests filtered deletion
      */
-    public function testDeleteFltered()
+    public function testDeleteFltered(): void
     {
         // setup
         $serviceModel = $this->getServiceModelMock();
@@ -401,7 +397,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Method tests deletion
      */
-    public function testDeleteRecord()
+    public function testDeleteRecord(): void
     {
         // setup
         $serviceModel = $this->getServiceModelMock();
@@ -417,7 +413,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Testing all records generation
      */
-    public function testAll()
+    public function testAll(): void
     {
         // setup
         $serviceLogic = $this->setupLogicForListMethodsTesting();
@@ -432,7 +428,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Method tests creation
      */
-    public function testCreateRecord()
+    public function testCreateRecord(): void
     {
         // setup
         $serviceModel = $this->getServiceModelMock();
@@ -448,7 +444,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     /**
      * Testing all records generation with no permits
      */
-    public function testAllNoPermit()
+    public function testAllNoPermit(): void
     {
         // setup
         $serviceModel = $this->getServiceModelMock();
@@ -463,5 +459,28 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
 
         // test body
         $serviceLogic->all();
+    }
+
+    /**
+     * Testing 'fields' method
+     */
+    public function testFields(): void
+    {
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->method('getFields')->willReturn([
+            'id' => [
+                'type' => 'integer'
+            ]
+        ]);
+
+        $serviceLogic = $this->getServiceLogicMock($serviceModel);
+
+        // test body
+        $result = $serviceLogic->fields();
+
+        // assertions
+        $this->assertTrue(is_array($result));
+        $this->assertTrue(is_array($result['fields']));
     }
 }

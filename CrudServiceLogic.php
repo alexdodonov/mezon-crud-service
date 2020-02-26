@@ -34,10 +34,9 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
     public function deleteRecord()
     {
         $domainId = $this->getDomainId();
-        $where = \Mezon\Gui\FieldsAlgorithms\Filter::addFilterCondition(
-            [
-                'id = ' . intval($this->paramsFetcher->getParam('id'))
-            ]);
+        $where = \Mezon\Gui\FieldsAlgorithms\Filter::addFilterCondition([
+            'id = ' . intval($this->paramsFetcher->getParam('id'))
+        ]);
 
         return $this->model->deleteFiltered($domainId, $where);
     }
@@ -68,12 +67,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
      */
     public function getRecords($domainId, $order, $from, $limit): array
     {
-        return $this->model->getSimpleRecords(
-            $domainId,
-            $from,
-            $limit,
-            \Mezon\Gui\FieldsAlgorithms\Filter::addFilterCondition([]),
-            $order);
+        return $this->model->getSimpleRecords($domainId, $from, $limit, \Mezon\Gui\FieldsAlgorithms\Filter::addFilterCondition([]), $order);
     }
 
     /**
@@ -102,9 +96,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
             if ($this->hasPermit($this->model->getEntityName() . '-manager')) {
                 $domainId = false;
             } else {
-                throw (new \Exception(
-                    'User "' . $this->getSelfLoginValue() . '" has no permit "' . $this->model->getEntityName() .
-                    '-manager"'));
+                throw (new \Exception('User "' . $this->getSelfLoginValue() . '" has no permit "' . $this->model->getEntityName() . '-manager"'));
             }
         } else {
             $domainId = $this->getSelfIdValue();
@@ -121,12 +113,10 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
     public function listRecord(): array
     {
         $domainId = $this->getDomainId();
-        $order = $this->paramsFetcher->getParam(
-            ORDER_FIELD_NAME,
-            [
-                FIELD_FIELD_NAME => 'id',
-                ORDER_FIELD_NAME => 'ASC'
-            ]);
+        $order = $this->paramsFetcher->getParam(ORDER_FIELD_NAME, [
+            FIELD_FIELD_NAME => 'id',
+            ORDER_FIELD_NAME => 'ASC'
+        ]);
 
         $from = $this->paramsFetcher->getParam('from', 0);
         $limit = $this->paramsFetcher->getParam('limit', 1000000000);
@@ -142,12 +132,10 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
     public function all(): array
     {
         $domainId = $this->getDomainId();
-        $order = $this->paramsFetcher->getParam(
-            ORDER_FIELD_NAME,
-            [
-                FIELD_FIELD_NAME => 'id',
-                ORDER_FIELD_NAME => 'ASC'
-            ]);
+        $order = $this->paramsFetcher->getParam(ORDER_FIELD_NAME, [
+            FIELD_FIELD_NAME => 'id',
+            ORDER_FIELD_NAME => 'ASC'
+        ]);
 
         return $this->getRecords($domainId, $order, 0, 1000000000);
     }
@@ -281,15 +269,9 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
 
         foreach ($this->model->getFields() as $name) {
             $fieldName = $this->model->getEntityName() . '-' . $name;
-            if ($this->model->getFieldType($name) == 'external' &&
-                $this->paramsFetcher->getParam($fieldName, false) !== false) {
+            if ($this->model->getFieldType($name) == 'external' && $this->paramsFetcher->getParam($fieldName, false) !== false) {
                 $ids = $this->paramsFetcher->getParam($fieldName);
-                $record = $this->model->insertExternalFields(
-                    $record,
-                    $this->paramsFetcher->getParam('session_id'),
-                    $name,
-                    $field,
-                    $ids);
+                $record = $this->model->insertExternalFields($record, $this->paramsFetcher->getParam('session_id'), $name, $field, $ids);
             }
         }
 
@@ -343,15 +325,14 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
     }
 
     /**
-     * Fields descriptions.
+     * Fields descriptions
      *
-     * @return array Fields descriptions and layout
+     * @return array Fields descriptions
      */
-    public function fields()
+    public function fields(): array
     {
         return [
-            'fields' => $this->model->getFields(),
-            'layout' => $this->Layout
+            'fields' => $this->model->getFields()
         ];
     }
 }
