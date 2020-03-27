@@ -16,7 +16,7 @@ define('GET_OBJECT', 2);
 /**
  * Fake security provider
  */
-class FakeSecurityProviderForCrudService
+class FakeSecurityProviderForCrudService implements \Mezon\Service\ServiceSecurityProviderInterface
 {
 }
 

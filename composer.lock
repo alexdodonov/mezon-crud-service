@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b284a11700e23f717045fd6d8c10aa0",
+    "content-hash": "f7419fc815939ad27daf7fdd3a99535f",
     "packages": [
         {
             "name": "mezon/conf",
@@ -125,16 +125,16 @@
         },
         {
             "name": "mezon/functional",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-functional.git",
-                "reference": "3cae5c7de9beabadadf39efc806caf67d5d1fb85"
+                "reference": "e1573d1e5f807a6f3a7f2aea3a544a9ed98f25cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-functional/zipball/3cae5c7de9beabadadf39efc806caf67d5d1fb85",
-                "reference": "3cae5c7de9beabadadf39efc806caf67d5d1fb85",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-functional/zipball/e1573d1e5f807a6f3a7f2aea3a544a9ed98f25cb",
+                "reference": "e1573d1e5f807a6f3a7f2aea3a544a9ed98f25cb",
                 "shasum": ""
             },
             "require": {
@@ -160,20 +160,20 @@
             ],
             "description": "Small and fast framework for functional programming",
             "homepage": "https://github.com/alexdodonov/mezon-functional",
-            "time": "2020-02-25T15:31:54+00:00"
+            "time": "2020-03-27T16:21:15+00:00"
         },
         {
             "name": "mezon/gui",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-gui.git",
-                "reference": "2fbc50c938217a429fc21626251c97fb94eb1f42"
+                "reference": "3d27bfe35938e59b1331905e54404298b395c8be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-gui/zipball/2fbc50c938217a429fc21626251c97fb94eb1f42",
-                "reference": "2fbc50c938217a429fc21626251c97fb94eb1f42",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-gui/zipball/3d27bfe35938e59b1331905e54404298b395c8be",
+                "reference": "3d27bfe35938e59b1331905e54404298b395c8be",
                 "shasum": ""
             },
             "require": {
@@ -203,7 +203,7 @@
             ],
             "description": "Small gui script",
             "homepage": "https://github.com/alexdodonov/mezon-gui",
-            "time": "2020-02-25T20:04:20+00:00"
+            "time": "2020-03-19T12:58:21+00:00"
         },
         {
             "name": "mezon/list-builder-adapter",
@@ -325,16 +325,16 @@
         },
         {
             "name": "mezon/router",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-router.git",
-                "reference": "d1349a430ab6bd64a66f89adf18e074531cb033d"
+                "reference": "1326fa2b160de8afb3627195c7cee6284bf3b64d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-router/zipball/d1349a430ab6bd64a66f89adf18e074531cb033d",
-                "reference": "d1349a430ab6bd64a66f89adf18e074531cb033d",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-router/zipball/1326fa2b160de8afb3627195c7cee6284bf3b64d",
+                "reference": "1326fa2b160de8afb3627195c7cee6284bf3b64d",
                 "shasum": ""
             },
             "require": {
@@ -360,7 +360,7 @@
             ],
             "description": "Small and fast routing framework",
             "homepage": "https://github.com/alexdodonov/mezon-router",
-            "time": "2020-02-19T07:44:28+00:00"
+            "time": "2020-03-19T12:15:58+00:00"
         },
         {
             "name": "mezon/security",
@@ -403,16 +403,16 @@
         },
         {
             "name": "mezon/service",
-            "version": "1.1.0",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-service.git",
-                "reference": "cb5d21d5e2a50ff6f410f1831c1154b690e8c722"
+                "reference": "abc30722fce11ef86b3262b11798989d23f77dfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-service/zipball/cb5d21d5e2a50ff6f410f1831c1154b690e8c722",
-                "reference": "cb5d21d5e2a50ff6f410f1831c1154b690e8c722",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-service/zipball/abc30722fce11ef86b3262b11798989d23f77dfb",
+                "reference": "abc30722fce11ef86b3262b11798989d23f77dfb",
                 "shasum": ""
             },
             "require": {
@@ -445,7 +445,7 @@
             ],
             "description": "Small service script",
             "homepage": "https://github.com/alexdodonov/mezon-service",
-            "time": "2020-02-26T16:01:21+00:00"
+            "time": "2020-03-27T15:19:44+00:00"
         },
         {
             "name": "mezon/template-engine",

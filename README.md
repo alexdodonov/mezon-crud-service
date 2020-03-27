@@ -64,3 +64,23 @@ parent::__construct([
 ```
 
 Here we describe a list of fields of our entity, table name where it is stored and entity name.
+
+## Default endpoints
+
+Out of the box a list of CRUD endpoints are available:
+
+```PHP
+GET /list/
+GET /all/ 
+GET /exact/list/[il:ids]/
+GET /exact/[i:id]/
+GET /fields/
+POST|PUT /delete/[i:id]/
+POST|DELETE  /delete/
+POST|PUT /create/
+POST /update/[i:id]/
+GET /new/from/[s:date]/
+GET /records/count/
+GET /last/[i:count]/
+GET /records/count/[s:field]
+```

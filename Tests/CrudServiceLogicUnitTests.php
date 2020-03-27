@@ -392,4 +392,30 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
         // assertions
         $this->assertEquals(1, $result['id']);
     }
+
+    /**
+     * Testing 'exactList' method
+     */
+    public function testExactList(): void
+    {
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->method('fetchRecordsByIds')->willReturn([
+            [
+                'id' => 1
+            ],
+            [
+                'id' => 2
+            ]
+        ]);
+        $_GET['id'] = 1;
+        $serviceLogic = $this->getServiceLogicMock($serviceModel);
+
+        // test body
+        $result = $serviceLogic->exactList();
+
+        // assertions
+        $this->assertEquals(1, $result[0]['id']);
+        $this->assertEquals(2, $result[1]['id']);
+    }
 }
