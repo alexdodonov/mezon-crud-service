@@ -12,7 +12,10 @@
 	],
 	"require": {
 		"php": ">=7.2.0",
-		"mezon/service" : ">=1.1.0 <1.2.0"
+		"mezon/service" : "^1.1",
+		"mezon/filter" : "^1.0",
+		"mezon/fields-set" : "^1.0",
+		"mezon/security": "^1.0"
 	},
 	"support": {
 		"email": "alexey@dodonov.pro",

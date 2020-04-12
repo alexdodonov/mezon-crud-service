@@ -221,7 +221,7 @@ class CrudServiceModelUnitTest extends \PHPUnit\Framework\TestCase
                 '*'
             ],
             [
-                new \Mezon\Gui\FieldsAlgorithms([
+                new \Mezon\FieldsSet([
                     'id' => [
                         'type' => 'intger'
                     ]

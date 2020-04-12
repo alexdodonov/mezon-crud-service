@@ -77,7 +77,7 @@ trait CrudServiceLogicTestsTrait
         $transport = new \Mezon\Service\ServiceConsoleTransport\ServiceConsoleTransport();
 
         return new \Mezon\CrudService\CrudServiceLogic(
-            $transport->paramsFetcher,
+            $transport->getParamsFetcher(),
             new \Mezon\Service\ServiceMockSecurityProvider(),
             $model);
     }
@@ -96,7 +96,7 @@ trait CrudServiceLogicTestsTrait
         return $this->getMockBuilder(\Mezon\CrudService\CrudServiceLogic::class)
             ->setConstructorArgs(
             [
-                $transport->paramsFetcher,
+                $transport->getParamsFetcher(),
                 new \Mezon\Service\ServiceMockSecurityProvider(),
                 $model
             ])

@@ -84,7 +84,7 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
 
         $connection = $this->getConnection();
 
-        $records = $connection->select($this->getFieldsNames(), $this->tableName, implode(' AND ', $where));
+        $records = $connection->select($this->getFieldsNames(), $this->getTableName(), implode(' AND ', $where));
 
         $this->lastNewRecordsSince($records);
 
@@ -108,7 +108,7 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
 
         $records = $this->getConnection()->select(
             'COUNT( * ) AS records_count',
-            $this->tableName,
+            $this->getTableName(),
             implode(' AND ', $where));
 
         if (count($records) === 0) {
@@ -142,7 +142,7 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
 
         return $this->getConnection()->select(
             $this->getFieldsNames(),
-            $this->tableName,
+            $this->getTableName(),
             implode(' AND ', $where) . ' ORDER BY ' . htmlspecialchars($order['field']) . ' ' .
             htmlspecialchars($order['order']),
             $from,
@@ -217,7 +217,7 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
 
         $records = $this->getConnection()->select(
             $this->getFieldsNames(),
-            $this->tableName,
+            $this->getTableName(),
             implode(' AND ', $where) . ' ORDER BY id DESC',
             0,
             $count);
@@ -255,7 +255,7 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
             $where = 'id IN ( ' . $ids . ' ) AND domain_id = ' . intval($domainId);
         }
 
-        $records = $this->getConnection()->select($this->getFieldsNames(), $this->tableName, $where);
+        $records = $this->getConnection()->select($this->getFieldsNames(), $this->getTableName(), $where);
 
         if (count($records) == 0) {
             throw (new \Exception(
@@ -286,7 +286,7 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
 
         $records = $this->getConnection()->select(
             $fieldName . ' , COUNT( * ) AS records_count',
-            $this->tableName,
+            $this->getTableName(),
             implode(' AND ', $where) . ' GROUP BY ' . $fieldName);
 
         if (count($records) === 0) {
@@ -309,10 +309,10 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
     public function deleteFiltered($domainId, array $where)
     {
         if ($domainId === false) {
-            return $this->getConnection()->delete($this->tableName, implode(' AND ', $where));
+            return $this->getConnection()->delete($this->getTableName(), implode(' AND ', $where));
         } else {
             return $this->getConnection()->delete(
-                $this->tableName,
+                $this->getTableName(),
                 implode(' AND ', $where) . ' AND domain_id = ' . intval($domainId));
         }
     }
@@ -334,7 +334,7 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
 
         $connection = $this->getConnection();
 
-        $connection->update($this->tableName, $record, implode(' AND ', $where));
+        $connection->update($this->getTableName(), $record, implode(' AND ', $where));
 
         return $record;
     }
@@ -348,9 +348,8 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
     {
         $record = [];
 
-        foreach ($this->fieldsAlgorithms->getFieldsNames() as $name) {
-            $field = $this->fieldsAlgorithms->getObject($name);
-            if ($field->getType() == 'custom') {
+        foreach ($this->getFields() as $name) {
+            if ($this->getFieldType($name) == 'custom') {
                 continue;
             }
             if ($name == 'id' || $name == 'domain_id') {
@@ -388,7 +387,7 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
             throw (new \Exception($msg . $this->getFieldsNames()));
         }
 
-        $record['id'] = $this->getConnection()->insert($this->tableName, $record);
+        $record['id'] = $this->getConnection()->insert($this->getTableName(), $record);
 
         return $record;
     }

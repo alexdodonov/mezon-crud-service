@@ -318,7 +318,7 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
     public function testCreateRecord(): void
     {
         // setup
-        $serviceModel = $this->getServiceModelMock();
+        $serviceModel = $this->getServiceModelMock(['insertBasicFields']);
         $serviceModel->expects($this->once())
             ->method('insertBasicFields');
 

@@ -50,7 +50,7 @@ class CrudService extends \Mezon\Service\Service
 
             $this->initCrudRoutes();
         } catch (\Exception $e) {
-            $this->serviceTransport->handleException($e);
+            $this->getTransport()->handleException($e);
         }
     }
 
@@ -97,28 +97,28 @@ class CrudService extends \Mezon\Service\Service
      */
     protected function initCrudRoutes(): void
     {
-        $this->serviceTransport->addRoute('/list/', 'listRecord', 'GET');
-        $this->serviceTransport->addRoute('/all/', 'all', 'GET');
-        $this->serviceTransport->addRoute('/exact/list/[il:ids]/', 'exactList', 'GET');
-        $this->serviceTransport->addRoute('/exact/[i:id]/', 'exact', 'GET');
-        $this->serviceTransport->addRoute('/fields/', 'fields', 'GET');
-        $this->serviceTransport->addRoute('/delete/[i:id]/', 'deleteRecord', [
+        $this->getTransport()->addRoute('/list/', 'listRecord', 'GET');
+        $this->getTransport()->addRoute('/all/', 'all', 'GET');
+        $this->getTransport()->addRoute('/exact/list/[il:ids]/', 'exactList', 'GET');
+        $this->getTransport()->addRoute('/exact/[i:id]/', 'exact', 'GET');
+        $this->getTransport()->addRoute('/fields/', 'fields', 'GET');
+        $this->getTransport()->addRoute('/delete/[i:id]/', 'deleteRecord', [
             'POST',
             'DELETE'
         ]);
-        $this->serviceTransport->addRoute('/delete/', 'deleteFiltered', [
+        $this->getTransport()->addRoute('/delete/', 'deleteFiltered', [
             'POST',
             'DELETE'
         ]);
-        $this->serviceTransport->addRoute('/create/', 'createRecord', [
+        $this->getTransport()->addRoute('/create/', 'createRecord', [
             'POST',
             'PUT'
         ]);
-        $this->serviceTransport->addRoute('/update/[i:id]/', 'updateRecord', 'POST');
-        $this->serviceTransport->addRoute('/new/from/[s:date]/', 'newRecordsSince', 'GET');
-        $this->serviceTransport->addRoute('/records/count/', 'recordsCount', 'GET');
-        $this->serviceTransport->addRoute('/last/[i:count]/', 'lastRecords', 'GET');
-        $this->serviceTransport->addRoute('/records/count/[s:field]/', 'recordsCountByField', 'GET');
+        $this->getTransport()->addRoute('/update/[i:id]/', 'updateRecord', 'POST');
+        $this->getTransport()->addRoute('/new/from/[s:date]/', 'newRecordsSince', 'GET');
+        $this->getTransport()->addRoute('/records/count/', 'recordsCount', 'GET');
+        $this->getTransport()->addRoute('/last/[i:count]/', 'lastRecords', 'GET');
+        $this->getTransport()->addRoute('/records/count/[s:field]/', 'recordsCountByField', 'GET');
 
         // TODO allow in CrudServiceClient trait DELETE and PUT as POST. Or ServiceClient? Yeah ServiceClient is much better candidate )
     }

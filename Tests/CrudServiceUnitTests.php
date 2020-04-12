@@ -303,11 +303,11 @@ class CrudServiceUnitTests extends \PHPUnit\Framework\TestCase
         $transport = $this->getTransport(GET_OBJECT);
 
         $logic1 = new \Mezon\CrudService\CrudServiceLogic(
-            $transport->paramsFetcher,
+            $transport->getParamsFetcher(),
             new FakeSecurityProviderForCrudService(),
             $model);
         $logic2 = new \Mezon\CrudService\CrudServiceLogic(
-            $transport->paramsFetcher,
+            $transport->getParamsFetcher(),
             new FakeSecurityProviderForCrudService(),
             $model);
 
