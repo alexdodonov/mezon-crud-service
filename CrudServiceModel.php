@@ -1,6 +1,7 @@
 <?php
 namespace Mezon\CrudService;
 
+// TODO extract model to the separate package
 /**
  * Class CrudServiceModel
  *
@@ -18,21 +19,6 @@ namespace Mezon\CrudService;
  */
 class CrudServiceModel extends \Mezon\Service\DbServiceModel
 {
-
-    /**
-     * Constructor
-     *
-     * @param string|array $fields
-     *            fields of the model
-     * @param string $tableName
-     *            name of the table
-     * @param string $entityName
-     *            name of the entity
-     */
-    public function __construct($fields = '*', string $tableName = '', string $entityName = '')
-    {
-        parent::__construct($fields, $tableName, $entityName);
-    }
 
     /**
      * Method transforms record before it will be returned with the newRecordsSince method
@@ -119,6 +105,21 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
     }
 
     /**
+     * Method defaults empty order to the default one
+     *
+     * @param array $order
+     *            order data to be defaulted
+     * @return array defaulted order data
+     */
+    protected function getDefaultOrder(array $order): array
+    {
+        return count($order) > 0 ? $order : [
+            'field' => 'id',
+            'order' => 'ASC'
+        ];
+    }
+
+    /**
      * Method fetches records before transformation
      *
      * @param int|bool $domainId
@@ -133,12 +134,10 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
      *            Sorting condition
      * @return array of records
      */
-    public function getSimpleRecords($domainId, $from, $limit, $where, $order = [
-        'field' => 'id',
-        'order' => 'ASC'
-    ])
+    public function getSimpleRecords($domainId, $from, $limit, $where, $order = [])
     {
         $where = $this->addDomainIdCondition($domainId, $where);
+        $order = $this->getDefaultOrder($order);
 
         return $this->getConnection()->select(
             $this->getFieldsNames(),
@@ -177,10 +176,7 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
      */
     public function getRecords($domainId, $from, $limit, $where = [
         '1=1'
-    ], $order = [
-        'field' => 'id',
-        'order' => 'ASC'
-    ])
+    ], $order = [])
     {
         $records = $this->getSimpleRecords($domainId, $from, $limit, $where, $order);
 
@@ -346,10 +342,12 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
      */
     public function fetchFields(): array
     {
+        // TODO fields must be fetched in the CrudServiceLogic class
         $record = [];
 
         foreach ($this->getFields() as $name) {
             if ($this->getFieldType($name) == 'custom') {
+                // you need to create your own handlers for the custom type
                 continue;
             }
             if ($name == 'id' || $name == 'domain_id') {
@@ -360,7 +358,7 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
                 continue;
             }
 
-            $this->fieldsAlgorithms->fetchField($record, $name);
+            $record[$name] = \Mezon\Security\Security::getStringValue($_POST[$name]);
         }
 
         return $record;
