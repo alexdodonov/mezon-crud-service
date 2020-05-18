@@ -358,7 +358,9 @@ class CrudServiceModel extends \Mezon\Service\DbServiceModel
                 continue;
             }
 
-            $record[$name] = \Mezon\Security\Security::getStringValue($_POST[$name]);
+            if (isset($_POST[$name])) {
+                $record[$name] = \Mezon\Security\Security::getStringValue($_POST[$name]);
+            }
         }
 
         return $record;
