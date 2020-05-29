@@ -29,7 +29,7 @@ class CrudService extends \Mezon\Service\Service
      * @param mixed $serviceModel
      *            Service's model, defaulted to \Mezon\CrudService\CrudServiceModel::class
      * @param mixed $securityProvider
-     *            Service's security provider, defaulted to \Mezon\Service\ServiceMockSecurityProvider::class
+     *            Service's security provider, defaulted to \Mezon\Security\MockProvider::class
      * @param mixed $serviceTransport
      *            Service's transport, defaulted to \Mezon\Service\ServiceRestTransport::class
      */
@@ -37,7 +37,7 @@ class CrudService extends \Mezon\Service\Service
         array $entity,
         $serviceLogic = \Mezon\CrudService\CrudServiceLogic::class,
         $serviceModel = \Mezon\CrudService\CrudServiceModel::class,
-        $securityProvider = \Mezon\Service\ServiceMockSecurityProvider::class,
+        $securityProvider = \Mezon\Security\MockProvider::class,
         $serviceTransport = \Mezon\Service\ServiceRestTransport\ServiceRestTransport::class)
     {
         try {

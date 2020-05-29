@@ -137,10 +137,10 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
         $serviceTransport = new \Mezon\Service\ServiceHttpTransport\ServiceHttpTransport();
         $serviceLogic = new \Mezon\CrudService\CrudServiceLogic(
             $serviceTransport->getParamsFetcher(),
-            new \Mezon\Service\ServiceMockSecurityProvider());
+            new \Mezon\Security\MockProvider());
 
-        $this->assertInstanceOf(\Mezon\Service\ServiceRequestParamsInterface::class, $serviceLogic->getParamsFetcher());
-        $this->assertInstanceOf(\Mezon\Service\ServiceMockSecurityProvider::class, $serviceLogic->getSecurityProvider());
+        $this->assertInstanceOf(\Mezon\Transport\RequestParamsInterface::class, $serviceLogic->getParamsFetcher());
+        $this->assertInstanceOf(\Mezon\Security\MockProvider::class, $serviceLogic->getSecurityProvider());
     }
 
     /**

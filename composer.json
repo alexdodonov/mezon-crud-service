@@ -12,10 +12,12 @@
 	],
 	"require": {
 		"php": ">=7.2.0",
-		"mezon/service" : "^1.1",
-		"mezon/filter" : "^1.0",
-		"mezon/fields-set" : "^1.0",
-		"mezon/security": "^1.0"
+		"mezon/service": "^1.1",
+		"mezon/filter": "^1.0",
+		"mezon/fields-set": "^1.0",
+		"mezon/security": "^1.0",
+		"mezon/crud-service-model": "^1.0",
+		"mezon/security-provider": "^1.0"
 	},
 	"support": {
 		"email": "alexey@dodonov.pro",
@@ -29,5 +31,9 @@
 		"psr-4": {
 			"Mezon\\CrudService\\": ""
 		}
+	},
+	"scripts": {
+		"post-update-cmd": "php ./vendor/phpunit/phpunit/phpunit",
+		"test": "php ./vendor/phpunit/phpunit/phpunit"
 	}
 }

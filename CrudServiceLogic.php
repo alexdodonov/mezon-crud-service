@@ -38,7 +38,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
             'id = ' . intval($this->getParamsFetcher()->getParam('id'))
         ]);
 
-        return $this->model->deleteFiltered($domainId, $where);
+        return $this->getModel()->deleteFiltered($domainId, $where);
     }
 
     /**
@@ -49,7 +49,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
         $domainId = $this->getDomainId();
         $where = \Mezon\Filter::addFilterCondition([]);
 
-        return $this->model->deleteFiltered($domainId, $where);
+        return $this->getModel()->deleteFiltered($domainId, $where);
     }
 
     /**
@@ -67,7 +67,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
      */
     public function getRecords($domainId, $order, $from, $limit): array
     {
-        return $this->model->getSimpleRecords($domainId, $from, $limit, \Mezon\Filter::addFilterCondition([]), $order);
+        return $this->getModel()->getSimpleRecords($domainId, $from, $limit, \Mezon\Filter::addFilterCondition([]), $order);
     }
 
     /**
@@ -77,7 +77,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
      */
     protected function hasDomainId(): bool
     {
-        return $this->model->hasField('domain_id');
+        return $this->getModel()->hasField('domain_id');
     }
 
     /**
@@ -93,10 +93,10 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
         }
 
         if (isset($_GET['cross_domain']) && intval($_GET['cross_domain'])) {
-            if ($this->hasPermit($this->model->getEntityName() . '-manager')) {
+            if ($this->hasPermit($this->getModel()->getEntityName() . '-manager')) {
                 $domainId = false;
             } else {
-                throw (new \Exception('User "' . $this->getSelfLoginValue() . '" has no permit "' . $this->model->getEntityName() . '-manager"'));
+                throw (new \Exception('User "' . $this->getSelfLoginValue() . '" has no permit "' . $this->getModel()->getEntityName() . '-manager"'));
             }
         } else {
             $domainId = $this->getSelfIdValue();
@@ -150,11 +150,11 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
         $domainId = $this->getDomainId();
         $date = $this->getParamsFetcher()->getParam('date');
 
-        if ($this->model->hasField('creation_date') === false) {
+        if ($this->getModel()->hasField('creation_date') === false) {
             throw (new \Exception('Field "creation_date" was not found'));
         }
 
-        return $this->model->newRecordsSince($domainId, $date);
+        return $this->getModel()->newRecordsSince($domainId, $date);
     }
 
     /**
@@ -166,7 +166,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
     {
         $domainId = $this->getDomainId();
 
-        return $this->model->recordsCount($domainId);
+        return $this->getModel()->recordsCount($domainId);
     }
 
     /**
@@ -182,7 +182,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
             '1 = 1'
         ]);
 
-        return $this->model->lastRecords($domainId, $count, $filter);
+        return $this->getModel()->lastRecords($domainId, $count, $filter);
     }
 
     /**
@@ -195,7 +195,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
     protected function updateBasicFields($id)
     {
         $domainId = $this->getDomainId();
-        $record = $this->model->fetchFields();
+        $record = $this->getModel()->fetchFields();
 
         if ($this->hasDomainId()) {
             $record['domain_id'] = $this->getSelfIdValue();
@@ -205,7 +205,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
             "id = " . $this->getParam('id')
         ];
 
-        return $this->model->updateBasicFields($domainId, $record, $where);
+        return $this->getModel()->updateBasicFields($domainId, $record, $where);
     }
 
     /**
@@ -223,7 +223,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
     {
         if (isset($customFields)) {
             foreach ($customFields as $name => $value) {
-                $this->model->setFieldForObject($id, $name, $value);
+                $this->getModel()->setFieldForObject($id, $name, $value);
             }
 
             $record['custom_fields'] = $customFields;
@@ -257,7 +257,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
      */
     public function createRecord()
     {
-        $record = $this->model->fetchFields();
+        $record = $this->getModel()->fetchFields();
 
         if ($this->hasDomainId()) {
             $domainId = $this->getSelfIdValue();
@@ -265,13 +265,13 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
             $domainId = false;
         }
 
-        $record = $this->model->insertBasicFields($record, $domainId);
+        $record = $this->getModel()->insertBasicFields($record, $domainId);
 
-        foreach ($this->model->getFields() as $name) {
-            $fieldName = $this->model->getEntityName() . '-' . $name;
-            if ($this->model->getFieldType($name) == 'external' && $this->getParamsFetcher()->getParam($fieldName, false) !== false) {
+        foreach ($this->getModel()->getFields() as $name) {
+            $fieldName = $this->getModel()->getEntityName() . '-' . $name;
+            if ($this->getModel()->getFieldType($name) == 'external' && $this->getParamsFetcher()->getParam($fieldName, false) !== false) {
                 $ids = $this->getParamsFetcher()->getParam($fieldName);
-                $record = $this->model->insertExternalFields($record, $this->getParamsFetcher()->getParam('session_id'), $name, $field, $ids);
+                $record = $this->getModel()->insertExternalFields($record, $this->getParamsFetcher()->getParam('session_id'), $name, $field, $ids);
             }
         }
 
@@ -288,7 +288,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
         $id = $this->getParamsFetcher()->getParam('id');
         $domainId = $this->getDomainId();
 
-        $records = $this->model->fetchRecordsByIds($domainId, $id);
+        $records = $this->getModel()->fetchRecordsByIds($domainId, $id);
 
         return $records[0];
     }
@@ -303,7 +303,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
         $ids = $this->getParamsFetcher()->getParam('ids');
         $domainId = $this->getDomainId();
 
-        return $this->model->fetchRecordsByIds($domainId, $ids);
+        return $this->getModel()->fetchRecordsByIds($domainId, $ids);
     }
 
     /**
@@ -315,13 +315,13 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
     {
         $domainId = $this->getDomainId();
 
-        $this->model->validateFieldExistance($this->getParamsFetcher()->getParam(FIELD_FIELD_NAME));
+        $this->getModel()->validateFieldExistance($this->getParamsFetcher()->getParam(FIELD_FIELD_NAME));
 
         $field = \Mezon\Security\Security::getStringValue($this->getParamsFetcher()->getParam(FIELD_FIELD_NAME));
 
         $where = \Mezon\Filter::addFilterCondition([]);
 
-        return $this->model->recordsCountByField($domainId, $field, $where);
+        return $this->getModel()->recordsCountByField($domainId, $field, $where);
     }
 
     /**
@@ -332,7 +332,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
     public function fields(): array
     {
         return [
-            'fields' => $this->model->getFields()
+            'fields' => $this->getModel()->getFields()
         ];
     }
 }
