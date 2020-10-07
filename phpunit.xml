@@ -8,8 +8,9 @@
 	</php>
 
 	<testsuites>
-		<testsuite name="All Tests">
+		<testsuite name="self">
 			<directory suffix="UnitTest.php">./Tests</directory>
+			<directory suffix="UnitTest.php">./Mezon/CrudService/Tests</directory>
 		</testsuite>
 	</testsuites>
 
