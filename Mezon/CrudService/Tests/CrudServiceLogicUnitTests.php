@@ -1,6 +1,12 @@
 <?php
 namespace Mezon\CrudService\Tests;
 
+use Mezon\Service\Tests\ServiceLogicUnitTests;
+use Mezon\CrudService\CrudServiceLogic;
+use Mezon\Service\ServiceHttpTransport\ServiceHttpTransport;
+use Mezon\Security\MockProvider;
+use Mezon\Transport\RequestParamsInterface;
+
 /**
  * Class CrudServiceLogicUnitTests
  *
@@ -16,17 +22,17 @@ namespace Mezon\CrudService\Tests;
  *
  * @group baseTests
  */
-class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTests
+class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
 {
 
-    use \Mezon\CrudService\Tests\CrudServiceLogicTestsTrait;
+    use CrudServiceLogicTestsTrait;
 
     /**
      * Testing class name
      *
      * @var string
      */
-    protected $className = \Mezon\CrudService\CrudServiceLogic::class;
+    protected $className = CrudServiceLogic::class;
 
     /**
      * Testing getting amount of records
@@ -134,13 +140,13 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
      */
     public function testConstruct(): void
     {
-        $serviceTransport = new \Mezon\Service\ServiceHttpTransport\ServiceHttpTransport();
-        $serviceLogic = new \Mezon\CrudService\CrudServiceLogic(
+        $serviceTransport = new ServiceHttpTransport();
+        $serviceLogic = new CrudServiceLogic(
             $serviceTransport->getParamsFetcher(),
-            new \Mezon\Security\MockProvider());
+            new MockProvider());
 
-        $this->assertInstanceOf(\Mezon\Transport\RequestParamsInterface::class, $serviceLogic->getParamsFetcher());
-        $this->assertInstanceOf(\Mezon\Security\MockProvider::class, $serviceLogic->getSecurityProvider());
+        $this->assertInstanceOf(RequestParamsInterface::class, $serviceLogic->getParamsFetcher());
+        $this->assertInstanceOf(MockProvider::class, $serviceLogic->getSecurityProvider());
     }
 
     /**
@@ -310,22 +316,6 @@ class CrudServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceLogicUnitTes
 
         // assertions
         $this->assertEquals(2, count($recordsList), 'Invalid records list was fetched');
-    }
-
-    /**
-     * Method tests creation
-     */
-    public function testCreateRecord(): void
-    {
-        // setup
-        $serviceModel = $this->getServiceModelMock(['insertBasicFields']);
-        $serviceModel->expects($this->once())
-            ->method('insertBasicFields');
-
-        $mock = $this->getServiceLogic($serviceModel);
-
-        // test body and assertions
-        $mock->createRecord();
     }
 
     /**

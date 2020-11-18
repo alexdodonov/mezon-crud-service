@@ -1,6 +1,9 @@
 <?php
 namespace Mezon\CrudService;
 
+use Mezon\Service\ServiceLogic;
+use Mezon\Security\Security;
+
 /**
  * Class CrudServiceLogic
  *
@@ -18,7 +21,7 @@ define('FIELD_FIELD_NAME', 'field');
  *
  * @author Dodonov A.A.
  */
-class CrudServiceLogic extends \Mezon\Service\ServiceLogic
+class CrudServiceLogic extends ServiceLogic
 {
 
     /**
@@ -67,7 +70,12 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
      */
     public function getRecords($domainId, $order, $from, $limit): array
     {
-        return $this->getModel()->getSimpleRecords($domainId, $from, $limit, \Mezon\Filter::addFilterCondition([]), $order);
+        return $this->getModel()->getSimpleRecords(
+            $domainId,
+            $from,
+            $limit,
+            \Mezon\Filter::addFilterCondition([]),
+            $order);
     }
 
     /**
@@ -93,10 +101,13 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
         }
 
         if (isset($_GET['cross_domain']) && intval($_GET['cross_domain'])) {
-            if ($this->hasPermit($this->getModel()->getEntityName() . '-manager')) {
+            if ($this->hasPermit($this->getModel()
+                ->getEntityName() . '-manager')) {
                 $domainId = false;
             } else {
-                throw (new \Exception('User "' . $this->getSelfLoginValue() . '" has no permit "' . $this->getModel()->getEntityName() . '-manager"'));
+                throw (new \Exception(
+                    'User "' . $this->getSelfLoginValue() . '" has no permit "' . $this->getModel()->getEntityName() .
+                    '-manager"'));
             }
         } else {
             $domainId = $this->getSelfIdValue();
@@ -113,10 +124,12 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
     public function listRecord(): array
     {
         $domainId = $this->getDomainId();
-        $order = $this->getParamsFetcher()->getParam(ORDER_FIELD_NAME, [
-            FIELD_FIELD_NAME => 'id',
-            ORDER_FIELD_NAME => 'ASC'
-        ]);
+        $order = $this->getParamsFetcher()->getParam(
+            ORDER_FIELD_NAME,
+            [
+                FIELD_FIELD_NAME => 'id',
+                ORDER_FIELD_NAME => 'ASC'
+            ]);
 
         $from = $this->getParamsFetcher()->getParam('from', 0);
         $limit = $this->getParamsFetcher()->getParam('limit', 1000000000);
@@ -132,10 +145,12 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
     public function all(): array
     {
         $domainId = $this->getDomainId();
-        $order = $this->getParamsFetcher()->getParam(ORDER_FIELD_NAME, [
-            FIELD_FIELD_NAME => 'id',
-            ORDER_FIELD_NAME => 'ASC'
-        ]);
+        $order = $this->getParamsFetcher()->getParam(
+            ORDER_FIELD_NAME,
+            [
+                FIELD_FIELD_NAME => 'id',
+                ORDER_FIELD_NAME => 'ASC'
+            ]);
 
         return $this->getRecords($domainId, $order, 0, 1000000000);
     }
@@ -195,7 +210,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
     protected function updateBasicFields($id)
     {
         $domainId = $this->getDomainId();
-        $record = $this->getModel()->fetchFields();
+        $record = $this->fetchFields();
 
         if ($this->hasDomainId()) {
             $record['domain_id'] = $this->getSelfIdValue();
@@ -243,7 +258,8 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
 
         $record = $this->updateBasicFields($id);
 
-        $record = $this->updateCustomFields($id, $record, $this->getParamsFetcher()->getParam('custom_fields', null));
+        $record = $this->updateCustomFields($id, $record, $this->getParamsFetcher()
+            ->getParam('custom_fields', null));
 
         $record['id'] = $id;
 
@@ -257,7 +273,7 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
      */
     public function createRecord()
     {
-        $record = $this->getModel()->fetchFields();
+        $record = $this->fetchFields();
 
         if ($this->hasDomainId()) {
             $domainId = $this->getSelfIdValue();
@@ -269,9 +285,16 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
 
         foreach ($this->getModel()->getFields() as $name) {
             $fieldName = $this->getModel()->getEntityName() . '-' . $name;
-            if ($this->getModel()->getFieldType($name) == 'external' && $this->getParamsFetcher()->getParam($fieldName, false) !== false) {
+            if ($this->getModel()->getFieldType($name) == 'external' &&
+                $this->getParamsFetcher()->getParam($fieldName, false) !== false) {
                 $ids = $this->getParamsFetcher()->getParam($fieldName);
-                $record = $this->getModel()->insertExternalFields($record, $this->getParamsFetcher()->getParam('session_id'), $name, $field, $ids);
+                $record = $this->getModel()->insertExternalFields(
+                    $record,
+                    $this->getParamsFetcher()
+                        ->getParam('session_id'),
+                    $name,
+                    $field,
+                    $ids);
             }
         }
 
@@ -315,7 +338,8 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
     {
         $domainId = $this->getDomainId();
 
-        $this->getModel()->validateFieldExistance($this->getParamsFetcher()->getParam(FIELD_FIELD_NAME));
+        $this->getModel()->validateFieldExistance($this->getParamsFetcher()
+            ->getParam(FIELD_FIELD_NAME));
 
         $field = \Mezon\Security\Security::getStringValue($this->getParamsFetcher()->getParam(FIELD_FIELD_NAME));
 
@@ -334,5 +358,36 @@ class CrudServiceLogic extends \Mezon\Service\ServiceLogic
         return [
             'fields' => $this->getModel()->getFields()
         ];
+    }
+
+    /**
+     * Method fetches fields for model manipulation
+     *
+     * @return array fetched fields
+     */
+    private function fetchFields(): array
+    {
+        $record = [];
+
+        foreach ($this->getModel()->getFields() as $name) {
+            if ($this->getModel()->getFieldType($name) == 'custom') {
+                // you need to create your own handlers for the custom type
+                continue;
+            }
+            if ($name == 'id' || $name == 'domain_id') {
+                continue;
+            }
+            if ($name == 'modification_date' || $name == 'creation_date') {
+                $record[$name] = 'NOW()';
+                continue;
+            }
+
+            $param = $this->getParamsFetcher()->getParam($name);
+            if ($param !== false) {
+                $record[$name] = Security::getStringValue($param);
+            }
+        }
+
+        return $record;
     }
 }

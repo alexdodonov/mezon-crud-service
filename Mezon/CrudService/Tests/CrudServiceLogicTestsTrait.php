@@ -1,6 +1,12 @@
 <?php
 namespace Mezon\CrudService\Tests;
 
+use Mezon\CrudService\CrudServiceModel;
+use Mezon\CrudService\CrudServiceLogic;
+use Mezon\Service\ServiceConsoleTransport\ServiceConsoleTransport;
+use Mezon\Security\MockProvider;
+use Mezon\PdoCrud\PdoCrud;
+
 /**
  * Common methods for CrudServiceLogicTests
  *
@@ -33,7 +39,7 @@ trait CrudServiceLogicTestsTrait
             'fetchRecordsByIds'
         ])
     {
-        return $this->getMockBuilder(\Mezon\CrudService\CrudServiceModel::class)
+        return $this->getMockBuilder(CrudServiceModel::class)
             ->setConstructorArgs(
             [
                 [
@@ -70,16 +76,13 @@ trait CrudServiceLogicTestsTrait
      *
      * @param mixed $model
      *            List of models or single model
-     * @return \Mezon\CrudService\CrudServiceLogic object
+     * @return CrudServiceLogic object
      */
-    protected function getServiceLogic($model): \Mezon\CrudService\CrudServiceLogic
+    protected function getServiceLogic($model): CrudServiceLogic
     {
-        $transport = new \Mezon\Service\ServiceConsoleTransport\ServiceConsoleTransport();
+        $transport = new ServiceConsoleTransport();
 
-        return new \Mezon\CrudService\CrudServiceLogic(
-            $transport->getParamsFetcher(),
-            new \Mezon\Security\MockProvider(),
-            $model);
+        return new CrudServiceLogic($transport->getParamsFetcher(), new MockProvider(), $model);
     }
 
     /**
@@ -91,15 +94,14 @@ trait CrudServiceLogicTestsTrait
      */
     protected function getServiceLogicMock($model): object
     {
-        $transport = new \Mezon\Service\ServiceConsoleTransport\ServiceConsoleTransport();
+        $transport = new ServiceConsoleTransport();
 
-        return $this->getMockBuilder(\Mezon\CrudService\CrudServiceLogic::class)
-            ->setConstructorArgs(
-            [
-                $transport->getParamsFetcher(),
-                new \Mezon\Security\MockProvider(),
-                $model
-            ])
+        return $this->getMockBuilder(CrudServiceLogic::class)
+            ->setConstructorArgs([
+            $transport->getParamsFetcher(),
+            new MockProvider(),
+            $model
+        ])
             ->setMethods([
             'getSelfIdValue',
             'hasPermit'
@@ -112,7 +114,7 @@ trait CrudServiceLogicTestsTrait
      */
     protected function setupLogicForListMethodsTesting()
     {
-        $connection = $this->getMockBuilder(\Mezon\PdoCrud\PdoCrud::class)
+        $connection = $this->getMockBuilder(PdoCrud::class)
             ->disableOriginalConstructor()
             ->setMethods([
             'select'

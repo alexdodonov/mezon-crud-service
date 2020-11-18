@@ -4,40 +4,35 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "55d51d2f054d567ad25162211f8a892b",
+    "content-hash": "45541b01b217a8561ac2b20e2fc6b0a0",
     "packages": [
         {
             "name": "doctrine/instantiator",
-            "version": "1.3.1",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "f350df0268e904597e3bd9c4685c53e0e333feea"
+                "reference": "d56bf6102915de5702778fe20f2de3b2fe570b5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/f350df0268e904597e3bd9c4685c53e0e333feea",
-                "reference": "f350df0268e904597e3bd9c4685c53e0e333feea",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/d56bf6102915de5702778fe20f2de3b2fe570b5b",
+                "reference": "d56bf6102915de5702778fe20f2de3b2fe570b5b",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1 || ^8.0"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^6.0",
+                "doctrine/coding-standard": "^8.0",
                 "ext-pdo": "*",
                 "ext-phar": "*",
-                "phpbench/phpbench": "^0.13",
-                "phpstan/phpstan-phpunit": "^0.11",
-                "phpstan/phpstan-shim": "^0.11",
-                "phpunit/phpunit": "^7.0"
+                "phpbench/phpbench": "^0.13 || 1.0.0-alpha2",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.2.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
@@ -51,7 +46,7 @@
                 {
                     "name": "Marco Pivetta",
                     "email": "ocramius@gmail.com",
-                    "homepage": "http://ocramius.github.com/"
+                    "homepage": "https://ocramius.github.io/"
                 }
             ],
             "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
@@ -60,6 +55,10 @@
                 "constructor",
                 "instantiate"
             ],
+            "support": {
+                "issues": "https://github.com/doctrine/instantiator/issues",
+                "source": "https://github.com/doctrine/instantiator/tree/1.4.0"
+            },
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -74,7 +73,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-05-29T17:27:14+00:00"
+            "time": "2020-11-10T18:47:58+00:00"
         },
         {
             "name": "mezon/conf",
@@ -113,30 +112,36 @@
             ],
             "description": "Small conf routine",
             "homepage": "https://github.com/alexdodonov/mezon-conf",
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-conf/issues",
+                "source": "https://github.com/alexdodonov/mezon-conf"
+            },
             "time": "2020-02-24T10:08:55+00:00"
         },
         {
             "name": "mezon/crud-service-model",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-crud-service-model.git",
-                "reference": "08ce0335848fe15464b56a1278a484eb930e1cd9"
+                "reference": "f377945f555f2b0aa63fa82785c2591160983032"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-crud-service-model/zipball/08ce0335848fe15464b56a1278a484eb930e1cd9",
-                "reference": "08ce0335848fe15464b56a1278a484eb930e1cd9",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-crud-service-model/zipball/f377945f555f2b0aa63fa82785c2591160983032",
+                "reference": "f377945f555f2b0aa63fa82785c2591160983032",
                 "shasum": ""
             },
             "require": {
+                "mezon/security": "^1.0",
                 "mezon/service-model": "^1.0",
                 "php": ">=7.2.0"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Mezon\\CrudService\\": ""
+                    "Mezon\\": "./Mezon/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -153,30 +158,37 @@
             ],
             "description": "Model with CRUD operations",
             "homepage": "https://github.com/alexdodonov/mezon-crud-service-model",
-            "time": "2020-05-28T14:27:02+00:00"
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-crud-service-model/issues",
+                "source": "https://github.com/alexdodonov/mezon-crud-service-model"
+            },
+            "time": "2020-10-07T15:18:32+00:00"
         },
         {
             "name": "mezon/custom-client",
-            "version": "1.0.10",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-custom-client.git",
-                "reference": "9c0ce0a95466ec949f87f813b55c70cab742aaa5"
+                "reference": "d657dc6c7b0a609ba328615ca2cabc352589024e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-custom-client/zipball/9c0ce0a95466ec949f87f813b55c70cab742aaa5",
-                "reference": "9c0ce0a95466ec949f87f813b55c70cab742aaa5",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-custom-client/zipball/d657dc6c7b0a609ba328615ca2cabc352589024e",
+                "reference": "d657dc6c7b0a609ba328615ca2cabc352589024e",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2.0",
+                "php": ">=7.2.0"
+            },
+            "require-dev": {
                 "phpunit/phpunit": "^8.5"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Mezon\\CustomClient\\": ""
+                    "Mezon\\": "./Mezon/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -193,7 +205,12 @@
             ],
             "description": "Small custom client routine",
             "homepage": "https://github.com/alexdodonov/mezon-custom-client",
-            "time": "2020-05-29T07:34:37+00:00"
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-custom-client/issues",
+                "source": "https://github.com/alexdodonov/mezon-custom-client"
+            },
+            "time": "2020-10-09T16:12:38+00:00"
         },
         {
             "name": "mezon/dns-client",
@@ -232,6 +249,11 @@
             ],
             "description": "Small dns-client script",
             "homepage": "https://github.com/alexdodonov/mezon-dns-client",
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-dns-client/issues",
+                "source": "https://github.com/alexdodonov/mezon-dns-client"
+            },
             "time": "2020-02-18T21:20:37+00:00"
         },
         {
@@ -271,6 +293,11 @@
             ],
             "description": "Set of typed fields",
             "homepage": "https://github.com/alexdodonov/mezon-fields-set",
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-fields-set/issues",
+                "source": "https://github.com/alexdodonov/mezon-fields-set"
+            },
             "time": "2020-04-20T14:31:20+00:00"
         },
         {
@@ -310,6 +337,11 @@
             ],
             "description": "Class for filters compilation",
             "homepage": "https://github.com/alexdodonov/mezon-filter",
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-filter/issues",
+                "source": "https://github.com/alexdodonov/mezon-filter"
+            },
             "time": "2020-04-11T13:30:16+00:00"
         },
         {
@@ -352,30 +384,38 @@
             ],
             "description": "Small and fast framework for functional programming",
             "homepage": "https://github.com/alexdodonov/mezon-functional",
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-functional/issues",
+                "source": "https://github.com/alexdodonov/mezon-functional"
+            },
             "time": "2020-09-18T14:17:14+00:00"
         },
         {
             "name": "mezon/http-request-params",
-            "version": "1.0.1",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-http-request-params.git",
-                "reference": "03d9a30f7011a59ed25f3642f2f862f80f71a765"
+                "reference": "2e0df274108b64cef291652243c17eda58806bda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-http-request-params/zipball/03d9a30f7011a59ed25f3642f2f862f80f71a765",
-                "reference": "03d9a30f7011a59ed25f3642f2f862f80f71a765",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-http-request-params/zipball/2e0df274108b64cef291652243c17eda58806bda",
+                "reference": "2e0df274108b64cef291652243c17eda58806bda",
                 "shasum": ""
             },
             "require": {
                 "mezon/request-params": "^1.0",
                 "php": ">=7.2.0"
             },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5"
+            },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Mezon\\Transport\\": ""
+                    "Mezon\\Transport\\": "./Mezon/Transport/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -392,20 +432,25 @@
             ],
             "description": "Small script for parameters fetcher",
             "homepage": "https://github.com/alexdodonov/mezon-http-request-params",
-            "time": "2020-05-29T10:43:17+00:00"
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-http-request-params/issues",
+                "source": "https://github.com/alexdodonov/mezon-http-request-params"
+            },
+            "time": "2020-11-14T14:25:51+00:00"
         },
         {
             "name": "mezon/pdocrud",
-            "version": "1.0.16",
+            "version": "1.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-pdocrud.git",
-                "reference": "a8d41d2e41b6b01b5601f0eada1fa3619190fef4"
+                "reference": "ff0d7b22a750230f90074eadaffab49a05180e06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-pdocrud/zipball/a8d41d2e41b6b01b5601f0eada1fa3619190fef4",
-                "reference": "a8d41d2e41b6b01b5601f0eada1fa3619190fef4",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-pdocrud/zipball/ff0d7b22a750230f90074eadaffab49a05180e06",
+                "reference": "ff0d7b22a750230f90074eadaffab49a05180e06",
                 "shasum": ""
             },
             "require": {
@@ -435,7 +480,12 @@
             ],
             "description": "Simple PDO wrapper",
             "homepage": "https://github.com/alexdodonov/mezon-pdocrud",
-            "time": "2020-10-01T11:43:38+00:00"
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-pdocrud/issues",
+                "source": "https://github.com/alexdodonov/mezon-pdocrud"
+            },
+            "time": "2020-10-09T15:21:45+00:00"
         },
         {
             "name": "mezon/request-params",
@@ -475,6 +525,11 @@
             ],
             "description": "Small script for parameters fetcher",
             "homepage": "https://github.com/alexdodonov/mezon-request-params",
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-request-params/issues",
+                "source": "https://github.com/alexdodonov/mezon-request-params"
+            },
             "time": "2020-06-01T08:27:45+00:00"
         },
         {
@@ -514,20 +569,25 @@
             ],
             "description": "Small rest-exception script",
             "homepage": "https://github.com/alexdodonov/mezon-rest-exception",
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-rest-exception/issues",
+                "source": "https://github.com/alexdodonov/mezon-rest-exception"
+            },
             "time": "2020-04-16T15:06:49+00:00"
         },
         {
             "name": "mezon/router",
-            "version": "1.2.9",
+            "version": "1.2.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-router.git",
-                "reference": "6c2bdc1761a8c5afcdb318c8b37d382fb6016891"
+                "reference": "4dab02f3a2c3d448e91709ff4ad9b2e3e0e8f6b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-router/zipball/6c2bdc1761a8c5afcdb318c8b37d382fb6016891",
-                "reference": "6c2bdc1761a8c5afcdb318c8b37d382fb6016891",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-router/zipball/4dab02f3a2c3d448e91709ff4ad9b2e3e0e8f6b4",
+                "reference": "4dab02f3a2c3d448e91709ff4ad9b2e3e0e8f6b4",
                 "shasum": ""
             },
             "require": {
@@ -557,7 +617,12 @@
             ],
             "description": "Small and fast routing framework",
             "homepage": "https://github.com/alexdodonov/mezon-router",
-            "time": "2020-10-07T13:32:55+00:00"
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-router/issues",
+                "source": "https://github.com/alexdodonov/mezon-router"
+            },
+            "time": "2020-10-13T16:33:02+00:00"
         },
         {
             "name": "mezon/security",
@@ -597,6 +662,11 @@
             ],
             "description": "Small security script",
             "homepage": "https://github.com/alexdodonov/mezon-security",
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-security/issues",
+                "source": "https://github.com/alexdodonov/mezon-security"
+            },
             "time": "2020-06-15T12:04:43+00:00"
         },
         {
@@ -639,6 +709,11 @@
             ],
             "description": "Security provider for services and applications",
             "homepage": "https://github.com/alexdodonov/mezon-security-provider",
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-security-provider/issues",
+                "source": "https://github.com/alexdodonov/mezon-security-provider"
+            },
             "time": "2020-09-18T14:25:22+00:00"
         },
         {
@@ -691,6 +766,11 @@
             ],
             "description": "Small service script",
             "homepage": "https://github.com/alexdodonov/mezon-service",
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-service/issues",
+                "source": "https://github.com/alexdodonov/mezon-service"
+            },
             "time": "2020-10-06T16:04:11+00:00"
         },
         {
@@ -736,20 +816,25 @@
             ],
             "description": "Small service logic script",
             "homepage": "https://github.com/alexdodonov/mezon-service-logic",
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-service-logic/issues",
+                "source": "https://github.com/alexdodonov/mezon-service-logic"
+            },
             "time": "2020-08-28T15:17:54+00:00"
         },
         {
             "name": "mezon/service-model",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-service-model.git",
-                "reference": "112d564ab5023ba8f9f5e1761e0f0840cab4c98c"
+                "reference": "a0f9fa71d4ba988cfd907ffca08cfd201e4b4bbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-service-model/zipball/112d564ab5023ba8f9f5e1761e0f0840cab4c98c",
-                "reference": "112d564ab5023ba8f9f5e1761e0f0840cab4c98c",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-service-model/zipball/a0f9fa71d4ba988cfd907ffca08cfd201e4b4bbe",
+                "reference": "a0f9fa71d4ba988cfd907ffca08cfd201e4b4bbe",
                 "shasum": ""
             },
             "require": {
@@ -764,7 +849,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Mezon\\Service\\": ""
+                    "Mezon\\": "./Mezon/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -781,33 +866,40 @@
             ],
             "description": "Small service model script",
             "homepage": "https://github.com/alexdodonov/mezon-service-model",
-            "time": "2020-09-18T06:20:23+00:00"
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-service-model/issues",
+                "source": "https://github.com/alexdodonov/mezon-service-model"
+            },
+            "time": "2020-10-08T15:30:01+00:00"
         },
         {
             "name": "mezon/service-transport",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-service-transport.git",
-                "reference": "9c5bf7cfc5b1a12f1da11ee528be01932d6309f7"
+                "reference": "80ff6afb22d553ab3ebd6889b9ac518075e99547"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-service-transport/zipball/9c5bf7cfc5b1a12f1da11ee528be01932d6309f7",
-                "reference": "9c5bf7cfc5b1a12f1da11ee528be01932d6309f7",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-service-transport/zipball/80ff6afb22d553ab3ebd6889b9ac518075e99547",
+                "reference": "80ff6afb22d553ab3ebd6889b9ac518075e99547",
                 "shasum": ""
             },
             "require": {
                 "mezon/request-params": "^1.0",
                 "mezon/router": "^1.0",
                 "mezon/service-logic": "^1.0",
-                "php": ">=7.2.0",
+                "php": ">=7.2.0"
+            },
+            "require-dev": {
                 "phpunit/phpunit": "^8.5"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Mezon\\Service\\": ""
+                    "Mezon\\Service\\": "./Mezon/Service/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -824,20 +916,25 @@
             ],
             "description": "Basic transport class for services and applications",
             "homepage": "https://github.com/alexdodonov/mezon-service-transport",
-            "time": "2020-06-15T05:30:24+00:00"
+            "support": {
+                "email": "alexey@dodonov.pro",
+                "issues": "https://github.com/alexdodonov/mezon-service-transport/issues",
+                "source": "https://github.com/alexdodonov/mezon-service-transport"
+            },
+            "time": "2020-11-13T06:29:45+00:00"
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.10.1",
+            "version": "1.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "969b211f9a51aa1f6c01d1d2aef56d3bd91598e5"
+                "reference": "776f831124e9c62e1a2c601ecc52e776d8bb7220"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/969b211f9a51aa1f6c01d1d2aef56d3bd91598e5",
-                "reference": "969b211f9a51aa1f6c01d1d2aef56d3bd91598e5",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/776f831124e9c62e1a2c601ecc52e776d8bb7220",
+                "reference": "776f831124e9c62e1a2c601ecc52e776d8bb7220",
                 "shasum": ""
             },
             "require": {
@@ -872,13 +969,17 @@
                 "object",
                 "object graph"
             ],
+            "support": {
+                "issues": "https://github.com/myclabs/DeepCopy/issues",
+                "source": "https://github.com/myclabs/DeepCopy/tree/1.10.2"
+            },
             "funding": [
                 {
                     "url": "https://tidelift.com/funding/github/packagist/myclabs/deep-copy",
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-06-29T13:22:24+00:00"
+            "time": "2020-11-13T09:40:50+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -933,6 +1034,10 @@
                 }
             ],
             "description": "Component for reading phar.io manifest information from a PHP Archive (PHAR)",
+            "support": {
+                "issues": "https://github.com/phar-io/manifest/issues",
+                "source": "https://github.com/phar-io/manifest/tree/master"
+            },
             "time": "2018-07-08T19:23:20+00:00"
         },
         {
@@ -980,6 +1085,10 @@
                 }
             ],
             "description": "Library for handling version information and constraints",
+            "support": {
+                "issues": "https://github.com/phar-io/version/issues",
+                "source": "https://github.com/phar-io/version/tree/master"
+            },
             "time": "2018-07-08T19:19:57+00:00"
         },
         {
@@ -1029,6 +1138,10 @@
                 "reflection",
                 "static analysis"
             ],
+            "support": {
+                "issues": "https://github.com/phpDocumentor/ReflectionCommon/issues",
+                "source": "https://github.com/phpDocumentor/ReflectionCommon/tree/2.x"
+            },
             "time": "2020-06-27T09:03:43+00:00"
         },
         {
@@ -1081,6 +1194,10 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
+            "support": {
+                "issues": "https://github.com/phpDocumentor/ReflectionDocBlock/issues",
+                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/master"
+            },
             "time": "2020-09-03T19:13:55+00:00"
         },
         {
@@ -1126,6 +1243,10 @@
                 }
             ],
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
+            "support": {
+                "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.4.0"
+            },
             "time": "2020-09-17T18:55:26+00:00"
         },
         {
@@ -1189,6 +1310,10 @@
                 "spy",
                 "stub"
             ],
+            "support": {
+                "issues": "https://github.com/phpspec/prophecy/issues",
+                "source": "https://github.com/phpspec/prophecy/tree/1.12.1"
+            },
             "time": "2020-09-29T09:10:42+00:00"
         },
         {
@@ -1252,6 +1377,10 @@
                 "testing",
                 "xunit"
             ],
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/7.0.10"
+            },
             "time": "2019-11-20T13:55:58+00:00"
         },
         {
@@ -1302,6 +1431,10 @@
                 "filesystem",
                 "iterator"
             ],
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/php-file-iterator/issues",
+                "source": "https://github.com/sebastianbergmann/php-file-iterator/tree/2.0.2"
+            },
             "time": "2018-09-13T20:33:42+00:00"
         },
         {
@@ -1343,6 +1476,10 @@
             "keywords": [
                 "template"
             ],
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/php-text-template/issues",
+                "source": "https://github.com/sebastianbergmann/php-text-template/tree/1.2.1"
+            },
             "time": "2015-06-21T13:50:34+00:00"
         },
         {
@@ -1392,6 +1529,10 @@
             "keywords": [
                 "timer"
             ],
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/php-timer/issues",
+                "source": "https://github.com/sebastianbergmann/php-timer/tree/master"
+            },
             "time": "2019-06-07T04:22:29+00:00"
         },
         {
@@ -1441,44 +1582,48 @@
             "keywords": [
                 "tokenizer"
             ],
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/php-token-stream/issues",
+                "source": "https://github.com/sebastianbergmann/php-token-stream/tree/3.1.1"
+            },
             "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.5.8",
+            "version": "8.5.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "34c18baa6a44f1d1fbf0338907139e9dce95b997"
+                "reference": "f5c8a5dd5e7e8d68d7562bfb48d47287d33937d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/34c18baa6a44f1d1fbf0338907139e9dce95b997",
-                "reference": "34c18baa6a44f1d1fbf0338907139e9dce95b997",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/f5c8a5dd5e7e8d68d7562bfb48d47287d33937d6",
+                "reference": "f5c8a5dd5e7e8d68d7562bfb48d47287d33937d6",
                 "shasum": ""
             },
             "require": {
-                "doctrine/instantiator": "^1.2.0",
+                "doctrine/instantiator": "^1.3.1",
                 "ext-dom": "*",
                 "ext-json": "*",
                 "ext-libxml": "*",
                 "ext-mbstring": "*",
                 "ext-xml": "*",
                 "ext-xmlwriter": "*",
-                "myclabs/deep-copy": "^1.9.1",
+                "myclabs/deep-copy": "^1.10.0",
                 "phar-io/manifest": "^1.0.3",
                 "phar-io/version": "^2.0.1",
                 "php": "^7.2",
-                "phpspec/prophecy": "^1.8.1",
-                "phpunit/php-code-coverage": "^7.0.7",
+                "phpspec/prophecy": "^1.10.3",
+                "phpunit/php-code-coverage": "^7.0.10",
                 "phpunit/php-file-iterator": "^2.0.2",
                 "phpunit/php-text-template": "^1.2.1",
                 "phpunit/php-timer": "^2.1.2",
                 "sebastian/comparator": "^3.0.2",
                 "sebastian/diff": "^3.0.2",
-                "sebastian/environment": "^4.2.2",
-                "sebastian/exporter": "^3.1.1",
+                "sebastian/environment": "^4.2.3",
+                "sebastian/exporter": "^3.1.2",
                 "sebastian/global-state": "^3.0.0",
                 "sebastian/object-enumerator": "^3.0.3",
                 "sebastian/resource-operations": "^2.0.1",
@@ -1525,6 +1670,10 @@
                 "testing",
                 "xunit"
             ],
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/phpunit/issues",
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/8.5.9"
+            },
             "funding": [
                 {
                     "url": "https://phpunit.de/donate.html",
@@ -1535,7 +1684,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-06-22T07:06:58+00:00"
+            "time": "2020-11-10T12:51:38+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -1580,6 +1729,10 @@
             ],
             "description": "Looks up which function or method a line of code belongs to",
             "homepage": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/",
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/issues",
+                "source": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/tree/master"
+            },
             "time": "2017-03-04T06:30:41+00:00"
         },
         {
@@ -1644,6 +1797,10 @@
                 "compare",
                 "equality"
             ],
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/comparator/issues",
+                "source": "https://github.com/sebastianbergmann/comparator/tree/master"
+            },
             "time": "2018-07-12T15:12:46+00:00"
         },
         {
@@ -1700,6 +1857,10 @@
                 "unidiff",
                 "unified diff"
             ],
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/diff/issues",
+                "source": "https://github.com/sebastianbergmann/diff/tree/master"
+            },
             "time": "2019-02-04T06:01:07+00:00"
         },
         {
@@ -1753,6 +1914,10 @@
                 "environment",
                 "hhvm"
             ],
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/environment/issues",
+                "source": "https://github.com/sebastianbergmann/environment/tree/4.2.3"
+            },
             "time": "2019-11-20T08:46:58+00:00"
         },
         {
@@ -1820,6 +1985,10 @@
                 "export",
                 "exporter"
             ],
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/exporter/issues",
+                "source": "https://github.com/sebastianbergmann/exporter/tree/master"
+            },
             "time": "2019-09-14T09:02:43+00:00"
         },
         {
@@ -1874,6 +2043,10 @@
             "keywords": [
                 "global state"
             ],
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/global-state/issues",
+                "source": "https://github.com/sebastianbergmann/global-state/tree/master"
+            },
             "time": "2019-02-01T05:30:01+00:00"
         },
         {
@@ -1921,6 +2094,10 @@
             ],
             "description": "Traverses array structures and object graphs to enumerate all referenced objects",
             "homepage": "https://github.com/sebastianbergmann/object-enumerator/",
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/object-enumerator/issues",
+                "source": "https://github.com/sebastianbergmann/object-enumerator/tree/master"
+            },
             "time": "2017-08-03T12:35:26+00:00"
         },
         {
@@ -1966,6 +2143,10 @@
             ],
             "description": "Allows reflection of object attributes, including inherited and non-public ones",
             "homepage": "https://github.com/sebastianbergmann/object-reflector/",
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/object-reflector/issues",
+                "source": "https://github.com/sebastianbergmann/object-reflector/tree/master"
+            },
             "time": "2017-03-29T09:07:27+00:00"
         },
         {
@@ -2019,6 +2200,10 @@
             ],
             "description": "Provides functionality to recursively process PHP variables",
             "homepage": "http://www.github.com/sebastianbergmann/recursion-context",
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/recursion-context/issues",
+                "source": "https://github.com/sebastianbergmann/recursion-context/tree/master"
+            },
             "time": "2017-03-03T06:23:57+00:00"
         },
         {
@@ -2061,6 +2246,10 @@
             ],
             "description": "Provides a list of PHP built-in functions that operate on resources",
             "homepage": "https://www.github.com/sebastianbergmann/resource-operations",
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/resource-operations/issues",
+                "source": "https://github.com/sebastianbergmann/resource-operations/tree/master"
+            },
             "time": "2018-10-04T04:07:39+00:00"
         },
         {
@@ -2107,6 +2296,10 @@
             ],
             "description": "Collection of value objects that represent the types of the PHP type system",
             "homepage": "https://github.com/sebastianbergmann/type",
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/type/issues",
+                "source": "https://github.com/sebastianbergmann/type/tree/master"
+            },
             "time": "2019-07-02T08:10:15+00:00"
         },
         {
@@ -2150,24 +2343,28 @@
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/version/issues",
+                "source": "https://github.com/sebastianbergmann/version/tree/master"
+            },
             "time": "2016-10-03T07:35:21+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.18.1",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "1c302646f6efc070cd46856e600e5e0684d6b454"
+                "reference": "f4ba089a5b6366e453971d3aad5fe8e897b37f41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/1c302646f6efc070cd46856e600e5e0684d6b454",
-                "reference": "1c302646f6efc070cd46856e600e5e0684d6b454",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/f4ba089a5b6366e453971d3aad5fe8e897b37f41",
+                "reference": "f4ba089a5b6366e453971d3aad5fe8e897b37f41",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=7.1"
             },
             "suggest": {
                 "ext-ctype": "For best performance"
@@ -2175,7 +2372,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.18-dev"
+                    "dev-main": "1.20-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -2212,6 +2409,9 @@
                 "polyfill",
                 "portable"
             ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.20.0"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2226,7 +2426,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-14T12:35:20+00:00"
+            "time": "2020-10-23T14:02:19+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -2266,6 +2466,10 @@
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
+            "support": {
+                "issues": "https://github.com/theseer/tokenizer/issues",
+                "source": "https://github.com/theseer/tokenizer/tree/master"
+            },
             "funding": [
                 {
                     "url": "https://github.com/theseer",
@@ -2321,6 +2525,10 @@
                 "check",
                 "validate"
             ],
+            "support": {
+                "issues": "https://github.com/webmozart/assert/issues",
+                "source": "https://github.com/webmozart/assert/tree/master"
+            },
             "time": "2020-07-08T17:02:28+00:00"
         }
     ],
@@ -2334,5 +2542,5 @@
         "php": ">=7.2.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }
