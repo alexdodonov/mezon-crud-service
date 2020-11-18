@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "45541b01b217a8561ac2b20e2fc6b0a0",
+    "content-hash": "0b483d66d7ef1247a2019961d99b9311",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -121,22 +121,24 @@
         },
         {
             "name": "mezon/crud-service-model",
-            "version": "1.0.1",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-crud-service-model.git",
-                "reference": "f377945f555f2b0aa63fa82785c2591160983032"
+                "reference": "7615f1bc88248cf2bb33813dc1799d848dfe6fa9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-crud-service-model/zipball/f377945f555f2b0aa63fa82785c2591160983032",
-                "reference": "f377945f555f2b0aa63fa82785c2591160983032",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-crud-service-model/zipball/7615f1bc88248cf2bb33813dc1799d848dfe6fa9",
+                "reference": "7615f1bc88248cf2bb33813dc1799d848dfe6fa9",
                 "shasum": ""
             },
             "require": {
-                "mezon/security": "^1.0",
                 "mezon/service-model": "^1.0",
                 "php": ">=7.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5"
             },
             "type": "library",
             "autoload": {
@@ -163,7 +165,7 @@
                 "issues": "https://github.com/alexdodonov/mezon-crud-service-model/issues",
                 "source": "https://github.com/alexdodonov/mezon-crud-service-model"
             },
-            "time": "2020-10-07T15:18:32+00:00"
+            "time": "2020-11-18T06:09:39+00:00"
         },
         {
             "name": "mezon/custom-client",
@@ -489,16 +491,16 @@
         },
         {
             "name": "mezon/request-params",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-request-params.git",
-                "reference": "ab614eba4d8db4dc4a6b2263f204a6e5eb5c0e62"
+                "reference": "5f16bc5e80f655ef80465a2d2bf4eac9b90a5699"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-request-params/zipball/ab614eba4d8db4dc4a6b2263f204a6e5eb5c0e62",
-                "reference": "ab614eba4d8db4dc4a6b2263f204a6e5eb5c0e62",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-request-params/zipball/5f16bc5e80f655ef80465a2d2bf4eac9b90a5699",
+                "reference": "5f16bc5e80f655ef80465a2d2bf4eac9b90a5699",
                 "shasum": ""
             },
             "require": {
@@ -530,7 +532,7 @@
                 "issues": "https://github.com/alexdodonov/mezon-request-params/issues",
                 "source": "https://github.com/alexdodonov/mezon-request-params"
             },
-            "time": "2020-06-01T08:27:45+00:00"
+            "time": "2020-11-18T06:08:02+00:00"
         },
         {
             "name": "mezon/rest-exception",
