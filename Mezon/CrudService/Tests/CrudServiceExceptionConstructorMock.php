@@ -5,6 +5,7 @@ use Mezon\CrudService\CrudServiceLogic;
 use Mezon\CrudService\CrudServiceModel;
 use Mezon\CrudService\CrudService;
 use Mezon\Service\Transport;
+use Mezon\Security\MockProvider;
 
 /**
  * Class CrudServiceExceptionConstructorMock
@@ -25,7 +26,7 @@ class CrudServiceExceptionConstructorMock extends CrudService
             'fields' => '*',
             'table-name' => 'table',
             'entity-name' => 'entity'
-        ], CrudServiceLogic::class, CrudServiceModel::class, new FakeSecurityProviderForCrudService(), $transport);
+        ], CrudServiceLogic::class, CrudServiceModel::class, new MockProvider(), $transport);
     }
 
     protected function initCommonRoutes(): void

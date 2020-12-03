@@ -1,6 +1,5 @@
 <?php
-
-use Mezon\CrudService\Tests\CrudServiceLogicUnitTests;
+namespace Mezon\CrudService\Tests;
 
 /**
  * Crud service logic unit tests.

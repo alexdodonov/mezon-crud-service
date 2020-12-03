@@ -58,7 +58,7 @@ class CrudServiceUnitTests extends \PHPUnit\Framework\TestCase
             ->setConstructorArgs(
             [
                 (new ServiceConsoleTransport())->getParamsFetcher(),
-                new FakeSecurityProviderForCrudService(),
+                new MockProvider(),
                 new CrudServiceModel()
             ])
             ->setMethods([
@@ -108,11 +108,11 @@ class CrudServiceUnitTests extends \PHPUnit\Framework\TestCase
             $this->getServiceSettings(),
             CrudServiceLogic::class,
             CrudServiceModel::class,
-            FakeSecurityProviderForCrudService::class,
+            MockProvider::class,
             ServiceConsoleTransport::class);
 
         $this->assertInstanceOf(
-            FakeSecurityProviderForCrudService::class,
+            MockProvider::class,
             $service->getTransport()
                 ->getSecurityProvider());
     }
@@ -127,12 +127,12 @@ class CrudServiceUnitTests extends \PHPUnit\Framework\TestCase
             $this->getServiceSettings(),
             CrudServiceLogic::class,
             CrudServiceModel::class,
-            new FakeSecurityProviderForCrudService(),
+            new MockProvider(),
             ServiceConsoleTransport::class);
 
         // assertions
         $this->assertInstanceOf(
-            FakeSecurityProviderForCrudService::class,
+            MockProvider::class,
             $service->getTransport()
                 ->getSecurityProvider());
     }
@@ -259,14 +259,14 @@ class CrudServiceUnitTests extends \PHPUnit\Framework\TestCase
 
         $transport = new ServiceConsoleTransport();
 
-        $logic1 = new CrudServiceLogic($transport->getParamsFetcher(), new FakeSecurityProviderForCrudService(), $model);
-        $logic2 = new CrudServiceLogic($transport->getParamsFetcher(), new FakeSecurityProviderForCrudService(), $model);
+        $logic1 = new CrudServiceLogic($transport->getParamsFetcher(), new MockProvider(), $model);
+        $logic2 = new CrudServiceLogic($transport->getParamsFetcher(), new MockProvider(), $model);
 
         // test body
         $service = new CrudService($this->getServiceSettings(), [
             $logic1,
             $logic2
-        ], CrudServiceModel::class, new FakeSecurityProviderForCrudService(), ServiceConsoleTransport::class);
+        ], CrudServiceModel::class, new MockProvider(), ServiceConsoleTransport::class);
 
         // assertions
         $this->assertInstanceOf(
@@ -289,7 +289,7 @@ class CrudServiceUnitTests extends \PHPUnit\Framework\TestCase
             $this->getServiceSettings('SetupCrudServiceNoFieldsUnitTests'),
             CrudServiceLogic::class,
             CrudServiceModel::class,
-            new FakeSecurityProviderForCrudService(),
+            new MockProvider(),
             ServiceConsoleTransport::class);
 
         // assertions
