@@ -45,8 +45,7 @@ class CrudService extends \Mezon\Service\Service
                 $serviceLogic,
                 $this->initModel($entity, $serviceModel),
                 $securityProvider,
-                $serviceTransport
-            );
+                $serviceTransport);
 
             $this->initCrudRoutes();
         } catch (\Exception $e) {
@@ -119,7 +118,5 @@ class CrudService extends \Mezon\Service\Service
         $this->getTransport()->addRoute('/records/count/', 'recordsCount', 'GET');
         $this->getTransport()->addRoute('/last/[i:count]/', 'lastRecords', 'GET');
         $this->getTransport()->addRoute('/records/count/[s:field]/', 'recordsCountByField', 'GET');
-
-        // TODO allow in CrudServiceClient trait DELETE and PUT as POST. Or ServiceClient? Yeah ServiceClient is much better candidate )
     }
 }
