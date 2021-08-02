@@ -1,4 +1,5 @@
-# Set of classes for creating CRUD services [![Build Status](https://travis-ci.com/alexdodonov/mezon-crud-service.svg?branch=master)](https://travis-ci.com/alexdodonov/mezon-crud-service) [![codecov](https://codecov.io/gh/alexdodonov/mezon-crud-service/branch/master/graph/badge.svg)](https://codecov.io/gh/alexdodonov/mezon-crud-service)
+# Set of classes for creating CRUD services
+[![Open Collective](https://img.shields.io/badge/Open%20Collective-sponsor-7eadf1?logo=open%20collective&logoColor=7eadf1&labelColor=555555)](https://opencollective.com/mezon-router) [![Build Status](https://travis-ci.com/alexdodonov/mezon-crud-service.svg?branch=master)](https://travis-ci.com/alexdodonov/mezon-crud-service) [![codecov](https://codecov.io/gh/alexdodonov/mezon-crud-service/branch/master/graph/badge.svg)](https://codecov.io/gh/alexdodonov/mezon-crud-service)
 
 ## Installation
 
