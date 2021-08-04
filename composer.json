@@ -10,6 +10,9 @@
 			"role": "Founder"
 		}
 	],
+	"require-dev": {
+		"phpunit/phpunit": "^8.5"
+	},
 	"require": {
 		"php": ">=7.2.0",
 		"mezon/service": "1.1.*",
