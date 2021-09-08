@@ -29,7 +29,7 @@ class CrudServiceExceptionConstructorMock extends CrudService
         ], CrudServiceLogic::class, CrudServiceModel::class, new MockProvider(), $transport);
     }
 
-    protected function initCommonRoutes(): void
+    protected function initCrudRoutes(): void
     {
         throw (new \Exception('Testing exception'));
     }

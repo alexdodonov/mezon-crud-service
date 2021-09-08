@@ -6,6 +6,7 @@ use Mezon\CrudService\CrudServiceModel;
 use Mezon\CrudService\CrudService;
 use Mezon\Service\ServiceConsoleTransport\ServiceConsoleTransport;
 use Mezon\Security\MockProvider;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class CrudServiceUnitTests
@@ -20,7 +21,7 @@ use Mezon\Security\MockProvider;
 /**
  * Basic service's unit tests
  */
-class CrudServiceUnitTests extends \PHPUnit\Framework\TestCase
+class CrudServiceUnitTests extends TestCase
 {
 
     /**
@@ -111,10 +112,8 @@ class CrudServiceUnitTests extends \PHPUnit\Framework\TestCase
             MockProvider::class,
             ServiceConsoleTransport::class);
 
-        $this->assertInstanceOf(
-            MockProvider::class,
-            $service->getTransport()
-                ->getSecurityProvider());
+        $this->assertInstanceOf(MockProvider::class, $service->getTransport()
+            ->getSecurityProvider());
     }
 
     /**
@@ -131,10 +130,8 @@ class CrudServiceUnitTests extends \PHPUnit\Framework\TestCase
             ServiceConsoleTransport::class);
 
         // assertions
-        $this->assertInstanceOf(
-            MockProvider::class,
-            $service->getTransport()
-                ->getSecurityProvider());
+        $this->assertInstanceOf(MockProvider::class, $service->getTransport()
+            ->getSecurityProvider());
     }
 
     /**
