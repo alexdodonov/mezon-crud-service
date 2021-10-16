@@ -1,6 +1,8 @@
 <?php
 namespace Mezon\CrudService\Tests;
 
+use Mezon\Service\Tests\ServiceTests;
+
 /**
  * Class CrudServiceTests
  *
@@ -17,7 +19,7 @@ namespace Mezon\CrudService\Tests;
  * @author Dodonov A.A.
  * @group baseTests
  */
-class CrudServiceTests extends \Mezon\Service\Tests\ServiceTests
+abstract class CrudServiceTests extends ServiceTests
 {
 
     /**

@@ -7,6 +7,7 @@ use Mezon\CrudService\CrudService;
 use Mezon\Service\ServiceConsoleTransport\ServiceConsoleTransport;
 use Mezon\Security\MockProvider;
 use PHPUnit\Framework\TestCase;
+use Mezon\Service\ServiceModel;
 
 /**
  * Class CrudServiceUnitTests
@@ -55,27 +56,27 @@ class CrudServiceUnitTests extends TestCase
     {
         $_GET['r'] = $route;
 
-        $mock = $this->getMockBuilder(CrudServiceLogic::class)
-            ->setConstructorArgs(
-            [
-                (new ServiceConsoleTransport())->getParamsFetcher(),
-                new MockProvider(),
-                new CrudServiceModel()
-            ])
-            ->setMethods([
+        $model = new CrudServiceModel();
+
+        $transport = new ServiceConsoleTransport(new MockProvider());
+
+        $serviceLogic = $this->getMockBuilder(CrudServiceLogic::class)
+            ->setConstructorArgs([
+            $transport->getParamsFetcher(),
+            $transport->getSecurityProvider(),
+            $model
+        ])
+            ->onlyMethods([
             $method
         ])
             ->getMock();
 
-        $mock->expects($this->once())
+        $serviceLogic->expects($this->once())
             ->method($method);
 
-        $service = new $this->className(
-            $this->getServiceSettings(),
-            $mock,
-            CrudServiceModel::class,
-            MockProvider::class,
-            ServiceConsoleTransport::class);
+        $transport->setServiceLogic($serviceLogic);
+
+        $service = new $this->className($transport);
 
         $_SERVER['REQUEST_METHOD'] = $requestMethod;
 
@@ -85,69 +86,29 @@ class CrudServiceUnitTests extends TestCase
     }
 
     /**
-     * Testing CrudService constructor
-     */
-    public function testServiceConstructor(): void
-    {
-        $service = new CrudService(
-            $this->getServiceSettings(),
-            CrudServiceLogic::class,
-            CrudServiceModel::class,
-            MockProvider::class,
-            ServiceConsoleTransport::class);
-
-        $this->assertInstanceOf(MockProvider::class, $service->getTransport()
-            ->getSecurityProvider());
-    }
-
-    /**
-     * Testing CrudService constructor
-     */
-    public function testServiceConstructorWithSecurityProviderString(): void
-    {
-        $service = new CrudService(
-            $this->getServiceSettings(),
-            CrudServiceLogic::class,
-            CrudServiceModel::class,
-            MockProvider::class,
-            ServiceConsoleTransport::class);
-
-        $this->assertInstanceOf(MockProvider::class, $service->getTransport()
-            ->getSecurityProvider());
-    }
-
-    /**
-     * Testing CrudService constructor
-     */
-    public function testServiceConstructorWithSecurityProviderObject(): void
-    {
-        // setup and test body
-        $service = new CrudService(
-            $this->getServiceSettings(),
-            CrudServiceLogic::class,
-            CrudServiceModel::class,
-            new MockProvider(),
-            ServiceConsoleTransport::class);
-
-        // assertions
-        $this->assertInstanceOf(MockProvider::class, $service->getTransport()
-            ->getSecurityProvider());
-    }
-
-    /**
      * Testing CrudService constructor with exception
      */
     public function testServiceConstructorWithException(): void
     {
         // setup, test body and assertions
         $transport = $this->getMockBuilder(ServiceConsoleTransport::class)
-            ->setMethods([
+            ->setConstructorArgs([
+            new MockProvider()
+        ])
+            ->onlyMethods([
             'handleException'
         ])
             ->getMock();
 
         $transport->expects($this->once())
             ->method('handleException');
+
+        $serviceLogic = new CrudServiceLogic(
+            $transport->getParamsFetcher(),
+            $transport->getSecurityProvider(),
+            new ServiceModel());
+
+        $transport->setServiceLogic($serviceLogic);
 
         new CrudServiceExceptionConstructorMock($transport);
     }
@@ -254,26 +215,25 @@ class CrudServiceUnitTests extends TestCase
         // setup
         $model = new CrudServiceModel();
 
-        $transport = new ServiceConsoleTransport();
+        // TODO create PublicAccessProvider it will be more semantic than MockProvider
+        $provider = new MockProvider();
 
-        $logic1 = new CrudServiceLogic($transport->getParamsFetcher(), new MockProvider(), $model);
-        $logic2 = new CrudServiceLogic($transport->getParamsFetcher(), new MockProvider(), $model);
+        $transport = new ServiceConsoleTransport($provider);
 
-        // test body
-        $service = new CrudService($this->getServiceSettings(), [
+        $logic1 = new CrudServiceLogic($transport->getParamsFetcher(), $transport->getSecurityProvider(), $model);
+        $logic2 = new CrudServiceLogic($transport->getParamsFetcher(), $transport->getSecurityProvider(), $model);
+
+        $transport->setServiceLogics([
             $logic1,
             $logic2
-        ], CrudServiceModel::class, new MockProvider(), ServiceConsoleTransport::class);
+        ]);
+
+        // test body
+        $service = new CrudService($transport);
 
         // assertions
-        $this->assertInstanceOf(
-            CrudServiceModel::class,
-            $service->getLogic()[0]->getModel(),
-            'Logic was not stored properly');
-        $this->assertInstanceOf(
-            CrudServiceModel::class,
-            $service->getLogic()[1]->getModel(),
-            'Logic was not stored properly');
+        $this->assertInstanceOf(CrudServiceModel::class, $service->getTransport()->getServiceLogics()[0]->getModel());
+        $this->assertInstanceOf(CrudServiceModel::class, $service->getTransport()->getServiceLogics()[1]->getModel());
     }
 
     /**
@@ -282,15 +242,24 @@ class CrudServiceUnitTests extends TestCase
     public function testGetFieldsFromConfig(): void
     {
         // setup and test body
-        $service = new CrudServiceTest(
-            $this->getServiceSettings('SetupCrudServiceNoFieldsUnitTests'),
-            CrudServiceLogic::class,
-            CrudServiceModel::class,
-            new MockProvider(),
-            ServiceConsoleTransport::class);
+        $provider = new MockProvider();
+        $model = new CrudServiceModel([
+            'id' => [
+                'type' => 'string',
+                'title' => 'All fields'
+            ]
+        ]);
+
+        $transport = new ServiceConsoleTransport($provider);
+
+        $serviceLogic = new CrudServiceLogic($transport->getParamsFetcher(), $transport->getSecurityProvider(), $model);
+
+        $transport->setServiceLogic($serviceLogic);
+
+        $service = new CrudServiceTest($transport);
 
         // assertions
-        $this->assertTrue($service->getLogic()[0]->getModel()
+        $this->assertTrue($service->getTransport()->getServiceLogics()[0]->getModel()
             ->hasField('id'));
     }
 }

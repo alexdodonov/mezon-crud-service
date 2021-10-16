@@ -6,6 +6,7 @@ use Mezon\CrudService\CrudServiceLogic;
 use Mezon\Service\ServiceHttpTransport\ServiceHttpTransport;
 use Mezon\Security\MockProvider;
 use Mezon\Transport\RequestParamsInterface;
+use Mezon\Service\ServiceModel;
 
 /**
  * Class CrudServiceLogicUnitTests
@@ -140,10 +141,11 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
      */
     public function testConstruct(): void
     {
-        $serviceTransport = new ServiceHttpTransport();
+        $serviceTransport = new ServiceHttpTransport(new MockProvider());
         $serviceLogic = new CrudServiceLogic(
             $serviceTransport->getParamsFetcher(),
-            new MockProvider());
+            $serviceTransport->getSecurityProvider(),
+            new ServiceModel());
 
         $this->assertInstanceOf(RequestParamsInterface::class, $serviceLogic->getParamsFetcher());
         $this->assertInstanceOf(MockProvider::class, $serviceLogic->getSecurityProvider());

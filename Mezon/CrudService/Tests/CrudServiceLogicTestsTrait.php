@@ -80,9 +80,9 @@ trait CrudServiceLogicTestsTrait
      */
     protected function getServiceLogic($model): CrudServiceLogic
     {
-        $transport = new ServiceConsoleTransport();
+        $transport = new ServiceConsoleTransport(new MockProvider());
 
-        return new CrudServiceLogic($transport->getParamsFetcher(), new MockProvider(), $model);
+        return new CrudServiceLogic($transport->getParamsFetcher(), $transport->getSecurityProvider(), $model);
     }
 
     /**
@@ -94,12 +94,12 @@ trait CrudServiceLogicTestsTrait
      */
     protected function getServiceLogicMock($model): object
     {
-        $transport = new ServiceConsoleTransport();
+        $transport = new ServiceConsoleTransport(new MockProvider());
 
         return $this->getMockBuilder(CrudServiceLogic::class)
             ->setConstructorArgs([
             $transport->getParamsFetcher(),
-            new MockProvider(),
+            $transport->getSecurityProvider(),
             $model
         ])
             ->setMethods([
@@ -114,6 +114,7 @@ trait CrudServiceLogicTestsTrait
      */
     protected function setupLogicForListMethodsTesting()
     {
+        // TODO replace with PdoCrudMock
         $connection = $this->getMockBuilder(PdoCrud::class)
             ->disableOriginalConstructor()
             ->setMethods([

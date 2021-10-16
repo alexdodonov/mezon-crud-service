@@ -1,11 +1,7 @@
 <?php
 namespace Mezon\CrudService\Tests;
 
-use Mezon\CrudService\CrudServiceLogic;
-use Mezon\CrudService\CrudServiceModel;
 use Mezon\CrudService\CrudService;
-use Mezon\Service\Transport;
-use Mezon\Security\MockProvider;
 
 /**
  * Class CrudServiceExceptionConstructorMock
@@ -16,18 +12,8 @@ use Mezon\Security\MockProvider;
  * @version v.1.0 (2019/08/13)
  * @copyright Copyright (c) 2019, aeon.org
  */
-
 class CrudServiceExceptionConstructorMock extends CrudService
 {
-
-    public function __construct(Transport $transport)
-    {
-        parent::__construct([
-            'fields' => '*',
-            'table-name' => 'table',
-            'entity-name' => 'entity'
-        ], CrudServiceLogic::class, CrudServiceModel::class, new MockProvider(), $transport);
-    }
 
     protected function initCrudRoutes(): void
     {

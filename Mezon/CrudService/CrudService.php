@@ -2,8 +2,7 @@
 namespace Mezon\CrudService;
 
 use Mezon\Service\Service;
-use Mezon\Service\ServiceRestTransport\ServiceRestTransport;
-use Mezon\Security\MockProvider;
+use Mezon\Service\TransportInterface;
 
 /**
  * Class CrudService
@@ -26,30 +25,13 @@ class CrudService extends Service
     /**
      * Constructor
      *
-     * @param array $entity
-     *            Entity description
-     * @param mixed $serviceLogic
-     *            Service's logic, defaulted to CrudServiceLogic::class
-     * @param mixed $serviceModel
-     *            Service's model, defaulted to CrudServiceModel::class
-     * @param mixed $securityProvider
-     *            Service's security provider, defaulted to MockProvider::class
-     * @param mixed $serviceTransport
-     *            Service's transport, defaulted to ServiceRestTransport::class
+     * @param TransportInterface $serviceTransport
+     *            service's transport, defaulted to ServiceRestTransport::class
      */
-    public function __construct(
-        array $entity,
-        $serviceLogic = CrudServiceLogic::class,
-        $serviceModel = CrudServiceModel::class,
-        $securityProvider = MockProvider::class,
-        $serviceTransport = ServiceRestTransport::class)
+    public function __construct(TransportInterface $serviceTransport)
     {
         try {
-            parent::__construct(
-                $serviceLogic,
-                $this->initModel($entity, $serviceModel),
-                $securityProvider,
-                $serviceTransport);
+            parent::__construct($serviceTransport);
 
             $this->initCrudRoutes();
         } catch (\Exception $e) {
