@@ -40,44 +40,6 @@ class CrudService extends Service
     }
 
     /**
-     * Method inits service's model
-     *
-     * @param array $entity
-     *            Entity description
-     * @param string|\Mezon\CrudService\CrudServiceModel $serviceModel
-     *            Service's model
-     */
-    protected function initModel(array $entity, $serviceModel)
-    {
-        $fields = isset($entity['fields']) ? $entity['fields'] : $this->getFieldsFromConfig();
-
-        if (is_string($serviceModel)) {
-            $this->model = new $serviceModel($fields, $entity['table-name'], $entity['entity-name']);
-        } else {
-            $this->model = $serviceModel;
-        }
-
-        return $this->model;
-    }
-
-    /**
-     * Method returns fields from config
-     *
-     * @return array List of fields
-     */
-    protected function getFieldsFromConfig()
-    {
-        $reflector = new \ReflectionClass(get_class($this));
-        $classPath = dirname($reflector->getFileName());
-
-        if (file_exists($classPath . '/conf/fields.json')) {
-            return json_decode(file_get_contents($classPath . '/conf/fields.json'), true);
-        }
-
-        throw (new \Exception('fields.json was not found'));
-    }
-
-    /**
      * Method inits common servoce's routes
      */
     protected function initCrudRoutes(): void
