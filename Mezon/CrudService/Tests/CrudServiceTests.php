@@ -1,122 +1,414 @@
 <?php
 namespace Mezon\CrudService\Tests;
 
-use Mezon\Service\Tests\ServiceTests;
+use Mezon\Service\Tests\ServiceLogicUnitTests;
+use Mezon\CrudService\CrudServiceLogic;
+use Mezon\Service\ServiceHttpTransport\ServiceHttpTransport;
+use Mezon\Security\MockProvider;
+use Mezon\Transport\RequestParamsInterface;
+use Mezon\Service\ServiceModel;
 
 /**
- * Class CrudServiceTests
+ * Class CrudServiceLogicUnitTests
  *
- * @package CrudService
- * @subpackage CrudServiceTests
+ * @package CrudServiceLogic
+ * @subpackage CrudServiceLogicUnitTests
  * @author Dodonov A.A.
  * @version v.1.0 (2019/08/17)
  * @copyright Copyright (c) 2019, aeon.org
  */
 
 /**
- * Predefined set of tests for crud service.
+ * Common CrudServiceLogic unit tests
  *
- * @author Dodonov A.A.
  * @group baseTests
  */
-abstract class CrudServiceTests extends ServiceTests
+class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
 {
 
+    use CrudServiceLogicTestsTrait;
+
     /**
-     * Method tests list endpoint.
+     * Testing class name
+     *
+     * @var string
      */
-    public function testList()
+    protected $className = CrudServiceLogic::class;
+
+    /**
+     * Testing getting amount of records
+     */
+    public function testRecordsCount1(): void
     {
-        $this->validConnect();
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->method('recordsCount')->willReturn(1);
 
-        $uRL = $this->ServerPath . '/list/?from=0&limit=20';
+        $serviceLogic = $this->getServiceLogic($serviceModel);
 
-        $result = $this->getHtmlRequest($uRL);
+        // test body
+        $count = $serviceLogic->recordsCount();
 
-        $this->assertEquals(count($result) > 0, true, 'No records were returned');
+        // assertions
+        $this->assertEquals(1, $count, 'Records count was not fetched');
     }
 
     /**
-     * Method tests cross domain list endpoint.
+     * Testing getting amount of records
      */
-    public function testCrossDomainList()
+    public function testRecordsCount0(): void
     {
-        $this->validConnect();
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->method('recordsCount')->willReturn(0);
 
-        $uRL = $this->ServerPath . '/list/?from=0&limit=20&cross_domain=1';
+        $serviceLogic = $this->getServiceLogic($serviceModel);
 
-        $result = $this->getHtmlRequest($uRL);
+        // test body
+        $count = $serviceLogic->recordsCount();
 
-        $this->assertEquals(count($result) > 0, true, 'No records were listed');
+        // assertions
+        $this->assertEquals(0, $count, 'Records count was not fetched');
     }
 
     /**
-     * Method tests non cross domain list endpoint.
+     * Method tests last N records returning
      */
-    public function testNonCrossDomainList()
+    public function testLastRecords(): void
     {
-        $this->validConnect();
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->method('lastRecords')->willReturn([
+            []
+        ]);
 
-        $uRL = $this->ServerPath . '/list/?from=0&limit=20&cross_domain=0';
+        $serviceLogic = $this->getServiceLogic($serviceModel);
 
-        $result = $this->getHtmlRequest($uRL);
+        // test body
+        $records = $serviceLogic->lastRecords(1);
 
-        $this->assertEquals(count($result) > 0, true, 'No records were listed');
+        // assertions
+        $this->assertEquals(1, count($records), 'Invalid amount of records was returned');
     }
 
     /**
-     * Method tests records counter.
+     * Testing getting amount of records
      */
-    public function testRecordsCount()
+    public function testRecordsCountByExistingField(): void
     {
-        $this->validConnect();
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->method('recordsCountByField')->willReturn([
+            [
+                'records_count' => 1
+            ]
+        ]);
 
-        $uRL = $this->ServerPath . '/records/count/';
+        $serviceLogic = $this->getServiceLogic($serviceModel);
 
-        $result = $this->getHtmlRequest($uRL);
+        global $argv;
+        $argv['field'] = 'id';
 
-        $this->assertEquals($result > 0, true, 'Invalid records counting (>0)');
+        // test body
+        $counters = $serviceLogic->recordsCountByField();
+
+        // assertions
+        $this->assertEquals(1, count($counters), 'Records were not fetched. Params:  ' . serialize($argv));
+        $this->assertEquals(1, $counters[0]['records_count'], 'Records were not counted');
     }
 
     /**
-     * Method tests list page endpoint.
+     * Testing getting amount of records.
      */
-    public function testListPage()
+    public function testRecordsCountByNotExistingField(): void
     {
-        $this->validConnect();
+        // setup
+        $serviceModel = $this->getServiceModelMock();
 
-        $uRL = $this->ServerPath . '/list/page/';
+        $serviceLogic = $this->getServiceLogic($serviceModel);
 
-        $result = $this->getHtmlRequest($uRL);
+        global $argv;
+        $argv['field'] = 'unexisting';
 
-        $this->assertTrue(isset($result->main), 'Page view was not generated');
+        // test body and assertions
+        $this->expectException(\Exception::class);
+
+        $serviceLogic->recordsCountByField();
     }
 
     /**
-     * Method tests last records fetching.
+     * Testing constructor.
      */
-    public function testLastRecords2()
+    public function testConstruct(): void
     {
-        $this->validConnect();
+        $serviceTransport = new ServiceHttpTransport(new MockProvider());
+        $serviceLogic = new CrudServiceLogic(
+            $serviceTransport->getParamsFetcher(),
+            $serviceTransport->getSecurityProvider(),
+            new ServiceModel());
 
-        $uRL = $this->ServerPath . '/last/2/';
-
-        $result = $this->getHtmlRequest($uRL);
-
-        $this->assertEquals(count($result) > 0, true, 'Invalid records counting (2)');
+        $this->assertInstanceOf(RequestParamsInterface::class, $serviceLogic->getParamsFetcher());
+        $this->assertInstanceOf(MockProvider::class, $serviceLogic->getSecurityProvider());
     }
 
     /**
-     * Method tests last records fetching.
+     * Testing records list generation
      */
-    public function testLastRecords0()
+    public function testListRecord(): void
     {
-        $this->validConnect();
+        // setup
+        $serviceLogic = $this->setupLogicForListMethodsTesting();
 
-        $uRL = $this->ServerPath . '/last/0/';
+        // test body
+        $recordsList = $serviceLogic->listRecord();
 
-        $result = $this->getHtmlRequest($uRL);
+        // assertions
+        $this->assertEquals(2, count($recordsList), 'Invalid records list was fetched');
+    }
 
-        $this->assertEquals(count($result), 0, 'Invalid records counting (0)');
+    /**
+     * Testing domain_id fetching
+     */
+    public function testGetDomainIdCrossDomainDisabled(): void
+    {
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->method('hasField')->willReturn(true);
+
+        $serviceLogic = $this->getServiceLogicMock($serviceModel);
+        $serviceLogic->method('getSelfIdValue')->willReturn(1);
+
+        unset($_GET['cross_domain']);
+
+        // test body
+        $result = $serviceLogic->getDomainId();
+
+        // assertions
+        $this->assertEquals(1, $result, 'Invalid getDomainId result. Must be 1');
+    }
+
+    /**
+     * Testing domain_id fetching
+     */
+    public function testGetDomainIdCrossDomainEnabled(): void
+    {
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+
+        $serviceLogic = $this->getServiceLogic($serviceModel);
+
+        $_GET['cross_domain'] = 1;
+
+        // test
+        $result = $serviceLogic->getDomainId();
+
+        $this->assertEquals(false, $result, 'Invalid getDomainId result. Must be false');
+    }
+
+    /**
+     * Testing newRecordsSince method for invalid
+     */
+    public function testNewRecordsSinceInvalid(): void
+    {
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->method('hasField')->willReturn(false);
+
+        $serviceLogic = $this->getServiceLogic($serviceModel);
+
+        // test body
+        $this->expectException(\Exception::class);
+
+        $serviceLogic->newRecordsSince();
+    }
+
+    /**
+     * Testing newRecordsSince method
+     */
+    public function testNewRecordsSince(): void
+    {
+        // setup
+        $_GET['cross_domain'] = 1;
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->method('hasField')->willReturn(true);
+        $serviceModel->method('newRecordsSince')->willReturn([
+            []
+        ]);
+
+        $serviceLogic = $this->getServiceLogic($serviceModel);
+
+        // test body
+        $result = $serviceLogic->newRecordsSince();
+
+        // assertions
+        $this->assertCount(1, $result);
+    }
+
+    /**
+     * Testing 'updateRecord' method
+     */
+    public function testUpdateRecord(): void
+    {
+        // setup
+        $fieldName = 'record-title';
+        $serviceModel = $this->getServiceModelMock([
+            'updateBasicFields',
+            'setFieldForObject'
+        ]);
+        $serviceModel->method('updateBasicFields')->willReturn([
+            $fieldName => 'Record title'
+        ]);
+
+        $serviceLogic = $this->getServiceLogic($serviceModel);
+
+        global $argv;
+        $argv[$fieldName] = 'Some title';
+        $argv['custom_fields']['record-balance'] = 123;
+
+        // test body
+        $record = $serviceLogic->updateRecord();
+
+        // assertions
+        $this->assertEquals('Record title', $record[$fieldName], 'Invalid update result' . serialize($argv));
+        $this->assertEquals(123, $record['custom_fields']['record-balance'], 'Invalid update result' . serialize($argv));
+        $this->assertTrue(isset($record['id']), 'Id was not returned' . serialize($argv));
+    }
+
+    /**
+     * Method tests filtered deletion
+     */
+    public function testDeleteFltered(): void
+    {
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->expects($this->once())
+            ->method('deleteFiltered');
+
+        $mock = $this->getServiceLogic($serviceModel);
+
+        // test body and assertions
+        $mock->deleteFiltered();
+    }
+
+    /**
+     * Method tests deletion
+     */
+    public function testDeleteRecord(): void
+    {
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->expects($this->once())
+            ->method('deleteFiltered');
+
+        $mock = $this->getServiceLogic($serviceModel);
+
+        // test body and assertions
+        $mock->deleteRecord();
+    }
+
+    /**
+     * Testing all records generation
+     */
+    public function testAll(): void
+    {
+        // setup
+        $serviceLogic = $this->setupLogicForListMethodsTesting();
+
+        // test body
+        $recordsList = $serviceLogic->all();
+
+        // assertions
+        $this->assertEquals(2, count($recordsList), 'Invalid records list was fetched');
+    }
+
+    /**
+     * Testing all records generation with no permits
+     */
+    public function testAllNoPermit(): void
+    {
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->method('hasField')->willReturn(true);
+        $_GET['cross_domain'] = 1;
+
+        $serviceLogic = $this->getServiceLogicMock($serviceModel);
+        $serviceLogic->method('hasPermit')->willReturn(false);
+
+        // assertions
+        $this->expectException(\Exception::class);
+
+        // test body
+        $serviceLogic->all();
+    }
+
+    /**
+     * Testing 'fields' method
+     */
+    public function testFields(): void
+    {
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->method('getFields')->willReturn([
+            'id' => [
+                'type' => 'integer'
+            ]
+        ]);
+
+        $serviceLogic = $this->getServiceLogicMock($serviceModel);
+
+        // test body
+        $result = $serviceLogic->fields();
+
+        // assertions
+        $this->assertTrue(is_array($result));
+        $this->assertTrue(is_array($result['fields']));
+    }
+
+    /**
+     * Testing 'exact' method
+     */
+    public function testExact(): void
+    {
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->method('fetchRecordsByIds')->willReturn([
+            [
+                'id' => 1
+            ]
+        ]);
+        $_GET['id'] = 1;
+        $serviceLogic = $this->getServiceLogicMock($serviceModel);
+
+        // test body
+        $result = $serviceLogic->exact();
+
+        // assertions
+        $this->assertEquals(1, $result['id']);
+    }
+
+    /**
+     * Testing 'exactList' method
+     */
+    public function testExactList(): void
+    {
+        // setup
+        $serviceModel = $this->getServiceModelMock();
+        $serviceModel->method('fetchRecordsByIds')->willReturn([
+            [
+                'id' => 1
+            ],
+            [
+                'id' => 2
+            ]
+        ]);
+        $_GET['id'] = 1;
+        $serviceLogic = $this->getServiceLogicMock($serviceModel);
+
+        // test body
+        $result = $serviceLogic->exactList();
+
+        // assertions
+        $this->assertEquals(1, $result[0]['id']);
+        $this->assertEquals(2, $result[1]['id']);
     }
 }
