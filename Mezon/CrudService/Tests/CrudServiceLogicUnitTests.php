@@ -228,6 +228,7 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
     public function testNewRecordsSince(): void
     {
         // setup
+        $_GET['cross_domain'] = 1;
         $serviceModel = $this->getServiceModelMock();
         $serviceModel->method('hasField')->willReturn(true);
         $serviceModel->method('newRecordsSince')->willReturn([
