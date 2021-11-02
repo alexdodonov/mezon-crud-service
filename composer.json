@@ -18,7 +18,7 @@
 		"mezon/service": "1.2.*",
 		"mezon/filter": "1.0.*",
 		"mezon/fields-set": "1.0.*",
-		"mezon/security": "1.0.*",
+		"mezon/security": "1.1.*",
 		"mezon/crud-service-model": "1.2.*",
 		"mezon/security-provider": "1.0.*"
 	},
