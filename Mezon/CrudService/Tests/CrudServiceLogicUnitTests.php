@@ -7,6 +7,8 @@ use Mezon\Service\ServiceHttpTransport\ServiceHttpTransport;
 use Mezon\Security\MockProvider;
 use Mezon\Transport\RequestParamsInterface;
 use Mezon\Service\ServiceModel;
+use Mezon\PdoCrud\Tests\PdoCrudMock;
+use Mezon\CrudService\CrudServiceModel;
 
 /**
  * Class CrudServiceLogicUnitTests
@@ -97,23 +99,22 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
     public function testRecordsCountByExistingField(): void
     {
         // setup
-        $serviceModel = $this->getServiceModelMock();
-        $serviceModel->method('recordsCountByField')->willReturn([
+        $connection = new PdoCrudMock();
+        $connection->selectResults[] = [
             [
                 'records_count' => 1
             ]
-        ]);
-
-        $serviceLogic = $this->getServiceLogic($serviceModel);
-
-        global $argv;
-        $argv['field'] = 'id';
+        ];
+        $_GET['field'] = 'title';
+        $model = new CrudServiceModel($this->jsonData('model'));
+        $model->setConnection($connection);
+        $serviceLogic = $this->getServiceLogicForModel($model);
 
         // test body
         $counters = $serviceLogic->recordsCountByField();
 
         // assertions
-        $this->assertEquals(1, count($counters), 'Records were not fetched. Params:  ' . serialize($argv));
+        $this->assertCount(1, $counters);
         $this->assertEquals(1, $counters[0]['records_count'], 'Records were not counted');
     }
 
@@ -157,13 +158,19 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
     public function testListRecord(): void
     {
         // setup
-        $serviceLogic = $this->setupLogicForListMethodsTesting();
+        $connection = new PdoCrudMock();
+        $connection->selectResults[] = [
+            1,
+            2,
+            3
+        ];
+        $serviceLogic = $this->getServiceLogicForConnection($connection);
 
         // test body
         $recordsList = $serviceLogic->listRecord();
 
         // assertions
-        $this->assertEquals(2, count($recordsList), 'Invalid records list was fetched');
+        $this->assertCount(3, $recordsList);
     }
 
     /**
@@ -250,28 +257,21 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
     public function testUpdateRecord(): void
     {
         // setup
-        $fieldName = 'record-title';
-        $serviceModel = $this->getServiceModelMock([
-            'updateBasicFields',
-            'setFieldForObject'
-        ]);
-        $serviceModel->method('updateBasicFields')->willReturn([
-            $fieldName => 'Record title'
-        ]);
-
-        $serviceLogic = $this->getServiceLogic($serviceModel);
-
-        global $argv;
-        $argv[$fieldName] = 'Some title';
-        $argv['custom_fields']['record-balance'] = 123;
+        $connection = new PdoCrudMock();
+        $_GET['id'] = 1;
+        $_GET['title'] = 'Record title';
+        // TODO fix update for custom fields
+        // $_GET['custom_fields']['record-balance'] = 123;
+        $model = new CrudServiceModel($this->jsonData('updateRecord'));
+        $model->setConnection($connection);
+        $serviceLogic = $this->getServiceLogicForModel($model);
 
         // test body
         $record = $serviceLogic->updateRecord();
 
         // assertions
-        $this->assertEquals('Record title', $record[$fieldName], 'Invalid update result' . serialize($argv));
-        $this->assertEquals(123, $record['custom_fields']['record-balance'], 'Invalid update result' . serialize($argv));
-        $this->assertTrue(isset($record['id']), 'Id was not returned' . serialize($argv));
+        $this->assertEquals('Record title', $record['title']);
+        $this->assertTrue(isset($record['id']));
     }
 
     /**
@@ -312,13 +312,15 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
     public function testAll(): void
     {
         // setup
-        $serviceLogic = $this->setupLogicForListMethodsTesting();
+        $connection = new PdoCrudMock();
+        $connection->selectResults[] = [
+            1,
+            2
+        ];
+        $serviceLogic = $this->getServiceLogicForConnection($connection);
 
-        // test body
-        $recordsList = $serviceLogic->all();
-
-        // assertions
-        $this->assertEquals(2, count($recordsList), 'Invalid records list was fetched');
+        // test body and assertions
+        $this->assertCount(2, $serviceLogic->all());
     }
 
     /**

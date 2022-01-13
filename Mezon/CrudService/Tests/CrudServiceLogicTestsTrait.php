@@ -6,6 +6,8 @@ use Mezon\CrudService\CrudServiceLogic;
 use Mezon\Service\ServiceConsoleTransport\ServiceConsoleTransport;
 use Mezon\Security\MockProvider;
 use Mezon\PdoCrud\PdoCrud;
+use Mezon\PdoCrud\Tests\PdoCrudMock;
+use Mezon\Service\ServiceHttpTransport\ServiceHttpTransport;
 
 /**
  * Common methods for CrudServiceLogicTests
@@ -39,6 +41,7 @@ trait CrudServiceLogicTestsTrait
             'fetchRecordsByIds'
         ])
     {
+        // TODO remove one usage
         return $this->getMockBuilder(CrudServiceModel::class)
             ->setConstructorArgs(
             [
@@ -68,7 +71,7 @@ trait CrudServiceLogicTestsTrait
      */
     protected function jsonData(string $fileName): array
     {
-        return json_decode(file_get_contents(__DIR__ . '/conf/' . $fileName . '.json'), true);
+        return json_decode(file_get_contents(__DIR__ . '/Conf/' . $fileName . '.json'), true);
     }
 
     /**
@@ -80,6 +83,7 @@ trait CrudServiceLogicTestsTrait
      */
     protected function getServiceLogic($model): CrudServiceLogic
     {
+        // TODO remove one usage
         $transport = new ServiceConsoleTransport(new MockProvider());
 
         return new CrudServiceLogic($transport->getParamsFetcher(), $transport->getSecurityProvider(), $model);
@@ -94,6 +98,7 @@ trait CrudServiceLogicTestsTrait
      */
     protected function getServiceLogicMock($model): object
     {
+        // TODO remove one usage
         $transport = new ServiceConsoleTransport(new MockProvider());
 
         return $this->getMockBuilder(CrudServiceLogic::class)
@@ -133,5 +138,35 @@ trait CrudServiceLogicTestsTrait
         $serviceModel->method('getConnection')->willReturn($connection);
 
         return $this->getServiceLogic($serviceModel);
+    }
+
+    /**
+     * Constructing logic
+     *
+     * @param CrudServiceModel $model
+     *            model
+     * @return CrudServiceLogic crud service logic
+     */
+    public function getServiceLogicForModel(CrudServiceModel $model): CrudServiceLogic
+    {
+        $securityProvider = new MockProvider();
+        $serviceTransport = new ServiceHttpTransport($securityProvider);
+
+        return new CrudServiceLogic($serviceTransport->getParamsFetcher(), $securityProvider, $model);
+    }
+
+    /**
+     * Constructing logic
+     *
+     * @param PdoCrudMock $connection
+     *            connection mock
+     * @return CrudServiceLogic crud service logic
+     */
+    public function getServiceLogicForConnection(PdoCrudMock $connection): CrudServiceLogic
+    {
+        $model = new CrudServiceModel();
+        $model->setConnection($connection);
+
+        return $this->getServiceLogicForModel($model);
     }
 }

@@ -3,6 +3,7 @@ namespace Mezon\CrudService;
 
 use Mezon\Service\ServiceLogic;
 use Mezon\Security\Security;
+use Mezon\Filter;
 
 /**
  * Class CrudServiceLogic
@@ -37,7 +38,7 @@ class CrudServiceLogic extends ServiceLogic
     public function deleteRecord()
     {
         $domainId = $this->getDomainId();
-        $where = \Mezon\Filter::addFilterCondition([
+        $where = Filter::addFilterCondition([
             'id = ' . intval($this->getParamsFetcher()->getParam('id'))
         ]);
 
@@ -50,7 +51,7 @@ class CrudServiceLogic extends ServiceLogic
     public function deleteFiltered()
     {
         $domainId = $this->getDomainId();
-        $where = \Mezon\Filter::addFilterCondition([]);
+        $where = Filter::addFilterCondition([]);
 
         return $this->getModel()->deleteFiltered($domainId, $where);
     }
@@ -193,7 +194,7 @@ class CrudServiceLogic extends ServiceLogic
     {
         $domainId = $this->getDomainId();
         $count = $this->getParamsFetcher()->getParam('count');
-        $filter = \Mezon\Filter::addFilterCondition([
+        $filter = Filter::addFilterCondition([
             '1 = 1'
         ]);
 
@@ -341,9 +342,9 @@ class CrudServiceLogic extends ServiceLogic
         $this->getModel()->validateFieldExistance($this->getParamsFetcher()
             ->getParam(FIELD_FIELD_NAME));
 
-        $field = \Mezon\Security\Security::getStringValue($this->getParamsFetcher()->getParam(FIELD_FIELD_NAME));
+        $field = Security::getStringValue($this->getParamsFetcher()->getParam(FIELD_FIELD_NAME));
 
-        $where = \Mezon\Filter::addFilterCondition([]);
+        $where = Filter::addFilterCondition([]);
 
         return $this->getModel()->recordsCountByField($domainId, $field, $where);
     }

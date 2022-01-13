@@ -1,0 +1,12 @@
+{
+	"id": {
+		"type": "integer"
+	},
+	"title": {
+		"type": "string"
+	},
+	"balance": {
+		"custom": 1,
+		"type": "integer"
+	}
+}
