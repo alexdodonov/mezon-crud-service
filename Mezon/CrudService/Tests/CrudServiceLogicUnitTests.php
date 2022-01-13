@@ -106,7 +106,7 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
             ]
         ];
         $_GET['field'] = 'title';
-        $model = new CrudServiceModel($this->jsonData('model'));
+        $model = new CrudServiceModel($this->jsonData('Model'));
         $model->setConnection($connection);
         $serviceLogic = $this->getServiceLogicForModel($model);
 
