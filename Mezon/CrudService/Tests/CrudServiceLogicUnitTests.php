@@ -262,7 +262,7 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
         $_GET['title'] = 'Record title';
         // TODO fix update for custom fields
         // $_GET['custom_fields']['record-balance'] = 123;
-        $model = new CrudServiceModel($this->jsonData('updateRecord'));
+        $model = new CrudServiceModel($this->jsonData('UpdateRecord'));
         $model->setConnection($connection);
         $serviceLogic = $this->getServiceLogicForModel($model);
 
