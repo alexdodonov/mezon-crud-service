@@ -260,8 +260,7 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
         $connection = new PdoCrudMock();
         $_GET['id'] = 1;
         $_GET['title'] = 'Record title';
-        // TODO fix update for custom fields
-        // $_GET['custom_fields']['record-balance'] = 123;
+
         $model = new CrudServiceModel($this->jsonData('UpdateRecord'));
         $model->setConnection($connection);
         $serviceLogic = $this->getServiceLogicForModel($model);

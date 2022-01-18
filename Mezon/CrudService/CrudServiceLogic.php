@@ -225,30 +225,6 @@ class CrudServiceLogic extends ServiceLogic
     }
 
     /**
-     * Method updates custom fields
-     *
-     * @param int $id
-     *            Id of the updating record
-     * @param array|object $record
-     *            Updating data
-     * @param array $customFields
-     *            Custom fields to be updated
-     * @return array|object - Updated data
-     */
-    protected function updateCustomFields($id, $record, $customFields)
-    {
-        if (isset($customFields)) {
-            foreach ($customFields as $name => $value) {
-                $this->getModel()->setFieldForObject($id, $name, $value);
-            }
-
-            $record['custom_fields'] = $customFields;
-        }
-
-        return $record;
-    }
-
-    /**
      * Method updates record and it's custom fields
      *
      * @return array Updated fields and their new values
@@ -258,9 +234,6 @@ class CrudServiceLogic extends ServiceLogic
         $id = $this->getParamsFetcher()->getParam('id');
 
         $record = $this->updateBasicFields($id);
-
-        $record = $this->updateCustomFields($id, $record, $this->getParamsFetcher()
-            ->getParam('custom_fields', null));
 
         $record['id'] = $id;
 
@@ -282,24 +255,7 @@ class CrudServiceLogic extends ServiceLogic
             $domainId = false;
         }
 
-        $record = $this->getModel()->insertBasicFields($record, $domainId);
-
-        foreach ($this->getModel()->getFields() as $name) {
-            $fieldName = $this->getModel()->getEntityName() . '-' . $name;
-            if ($this->getModel()->getFieldType($name) == 'external' &&
-                $this->getParamsFetcher()->getParam($fieldName, false) !== false) {
-                $ids = $this->getParamsFetcher()->getParam($fieldName);
-                $record = $this->getModel()->insertExternalFields(
-                    $record,
-                    $this->getParamsFetcher()
-                        ->getParam('session_id'),
-                    $name,
-                    $field,
-                    $ids);
-            }
-        }
-
-        return $record;
+        return $this->getModel()->insertBasicFields($record, $domainId);
     }
 
     /**
