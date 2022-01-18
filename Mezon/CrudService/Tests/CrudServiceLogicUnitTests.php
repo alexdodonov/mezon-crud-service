@@ -258,6 +258,7 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
     {
         // setup
         $connection = new PdoCrudMock();
+        unset($_POST);
         $_GET['id'] = 1;
         $_GET['title'] = 'Record title';
 
