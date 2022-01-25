@@ -23,7 +23,7 @@ use Mezon\Service\ServiceModel;
  *
  * @group baseTests
  */
-class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
+class CrudServiceTests extends ServiceLogicUnitTests
 {
     
     use CrudServiceLogicTestsTrait;

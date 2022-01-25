@@ -9,6 +9,9 @@ use Mezon\Transport\RequestParamsInterface;
 use Mezon\Service\ServiceModel;
 use Mezon\PdoCrud\Tests\PdoCrudMock;
 use Mezon\CrudService\CrudServiceModel;
+use PHPUnit\Framework\TestCase;
+use Mezon\Headers\Layer;
+use Mezon\Conf\Conf;
 
 /**
  * Class CrudServiceLogicUnitTests
@@ -29,6 +32,16 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
 {
 
     use CrudServiceLogicTestsTrait;
+
+    /**
+     *
+     * {@inheritdoc}
+     * @see TestCase::setUp()
+     */
+    protected function setUp(): void
+    {
+        Conf::setConfigStringValue('headers/layer', 'mock');
+    }
 
     /**
      * Testing class name
