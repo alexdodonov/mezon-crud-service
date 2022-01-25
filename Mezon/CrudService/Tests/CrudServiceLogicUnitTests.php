@@ -40,6 +40,8 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
      */
     protected function setUp(): void
     {
+        parent::setUp();
+
         Conf::setConfigStringValue('headers/layer', 'mock');
     }
 
