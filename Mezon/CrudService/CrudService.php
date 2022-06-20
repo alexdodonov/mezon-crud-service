@@ -11,7 +11,7 @@ use Mezon\Service\TransportInterface;
  * @subpackage CrudService
  * @author Dodonov A.A.
  * @version v.1.0 (2019/08/17)
- * @copyright Copyright (c) 2019, aeon.org
+ * @copyright Copyright (c) 2019, http://aeon.su
  */
 
 /**
@@ -26,7 +26,7 @@ class CrudService extends Service
      * Constructor
      *
      * @param TransportInterface $serviceTransport
-     *            service's transport, defaulted to ServiceRestTransport::class
+     *            service's transport
      */
     public function __construct(TransportInterface $serviceTransport)
     {

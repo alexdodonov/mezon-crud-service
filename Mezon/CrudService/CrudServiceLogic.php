@@ -12,7 +12,7 @@ use Mezon\Filter;
  * @subpackage CrudServiceLogic
  * @author Dodonov A.A.
  * @version v.1.0 (2019/08/13)
- * @copyright Copyright (c) 2019, aeon.org
+ * @copyright Copyright (c) 2019, http://aeon.su
  */
 define('ORDER_FIELD_NAME', 'order');
 define('FIELD_FIELD_NAME', 'field');
@@ -24,6 +24,13 @@ define('FIELD_FIELD_NAME', 'field');
  */
 class CrudServiceLogic extends ServiceLogic
 {
+
+    /**
+     * Model
+     *
+     * @var CrudServiceModel
+     */
+    protected $model;
 
     /**
      * Form builder
@@ -42,7 +49,7 @@ class CrudServiceLogic extends ServiceLogic
             'id = ' . intval($this->getParamsFetcher()->getParam('id'))
         ]);
 
-        return $this->getModel()->deleteFiltered($domainId, $where);
+        return $this->model->deleteFiltered($domainId, $where);
     }
 
     /**
@@ -53,7 +60,7 @@ class CrudServiceLogic extends ServiceLogic
         $domainId = $this->getDomainId();
         $where = Filter::addFilterCondition([]);
 
-        return $this->getModel()->deleteFiltered($domainId, $where);
+        return $this->model->deleteFiltered($domainId, $where);
     }
 
     /**
@@ -71,12 +78,7 @@ class CrudServiceLogic extends ServiceLogic
      */
     public function getRecords($domainId, $order, $from, $limit): array
     {
-        return $this->getModel()->getSimpleRecords(
-            $domainId,
-            $from,
-            $limit,
-            \Mezon\Filter::addFilterCondition([]),
-            $order);
+        return $this->model->getSimpleRecords($domainId, $from, $limit, \Mezon\Filter::addFilterCondition([]), $order);
     }
 
     /**
@@ -86,7 +88,7 @@ class CrudServiceLogic extends ServiceLogic
      */
     protected function hasDomainId(): bool
     {
-        return $this->getModel()->hasField('domain_id');
+        return $this->model->hasField('domain_id');
     }
 
     /**
@@ -102,12 +104,11 @@ class CrudServiceLogic extends ServiceLogic
         }
 
         if (isset($_GET['cross_domain']) && intval($_GET['cross_domain'])) {
-            if ($this->hasPermit($this->getModel()
-                ->getEntityName() . '-manager')) {
+            if ($this->hasPermit($this->model->getEntityName() . '-manager')) {
                 $domainId = false;
             } else {
                 throw (new \Exception(
-                    'User "' . $this->getSelfLoginValue() . '" has no permit "' . $this->getModel()->getEntityName() .
+                    'User "' . $this->getSelfLoginValue() . '" has no permit "' . $this->model->getEntityName() .
                     '-manager"'));
             }
         } else {
@@ -166,11 +167,11 @@ class CrudServiceLogic extends ServiceLogic
         $domainId = $this->getDomainId();
         $date = $this->getParamsFetcher()->getParam('date');
 
-        if ($this->getModel()->hasField('creation_date') === false) {
+        if ($this->model->hasField('creation_date') === false) {
             throw (new \Exception('Field "creation_date" was not found'));
         }
 
-        return $this->getModel()->newRecordsSince($domainId, $date);
+        return $this->model->newRecordsSince($domainId, $date);
     }
 
     /**
@@ -182,7 +183,7 @@ class CrudServiceLogic extends ServiceLogic
     {
         $domainId = $this->getDomainId();
 
-        return $this->getModel()->recordsCount($domainId);
+        return $this->model->recordsCount($domainId);
     }
 
     /**
@@ -190,7 +191,7 @@ class CrudServiceLogic extends ServiceLogic
      *
      * @return array List of the last $count records
      */
-    public function lastRecords()
+    public function lastRecords(): array
     {
         $domainId = $this->getDomainId();
         $count = $this->getParamsFetcher()->getParam('count');
@@ -198,7 +199,7 @@ class CrudServiceLogic extends ServiceLogic
             '1 = 1'
         ]);
 
-        return $this->getModel()->lastRecords($domainId, $count, $filter);
+        return $this->model->lastRecords($domainId, $count, $filter);
     }
 
     /**
@@ -221,7 +222,7 @@ class CrudServiceLogic extends ServiceLogic
             "id = " . $this->getParam('id')
         ];
 
-        return $this->getModel()->updateBasicFields($domainId, $record, $where);
+        return $this->model->updateBasicFields($domainId, $record, $where);
     }
 
     /**
@@ -243,9 +244,9 @@ class CrudServiceLogic extends ServiceLogic
     /**
      * Method creates user
      *
-     * @return array Created record
+     * @return array created record
      */
-    public function createRecord()
+    public function createRecord(): array
     {
         $record = $this->fetchFields();
 
@@ -255,54 +256,54 @@ class CrudServiceLogic extends ServiceLogic
             $domainId = false;
         }
 
-        return $this->getModel()->insertBasicFields($record, $domainId);
+        return $this->model->insertBasicFields($record, $domainId);
     }
 
     /**
      * Method returns exact record from the table
      *
-     * @return array Exact record
+     * @return array exact record
      */
-    public function exact()
+    public function exact(): array
     {
         $id = $this->getParamsFetcher()->getParam('id');
         $domainId = $this->getDomainId();
 
-        $records = $this->getModel()->fetchRecordsByIds($domainId, $id);
+        $records = $this->model->fetchRecordsByIds($domainId, $id);
 
         return $records[0];
     }
 
     /**
-     * Method returns exact records from the table.
+     * Method returns exact records from the table
      *
-     * @return array Exact list of records.
+     * @return array exact list of records
      */
-    public function exactList()
+    public function exactList(): array
     {
         $ids = $this->getParamsFetcher()->getParam('ids');
         $domainId = $this->getDomainId();
 
-        return $this->getModel()->fetchRecordsByIds($domainId, $ids);
+        return $this->model->fetchRecordsByIds($domainId, $ids);
     }
 
     /**
-     * Method returns records count, grouped by the specified field.
+     * Method returns records count, grouped by the specified field
      *
-     * @return int Records count.
+     * @return array records count
      */
-    public function recordsCountByField()
+    public function recordsCountByField(): array
     {
         $domainId = $this->getDomainId();
 
-        $this->getModel()->validateFieldExistance($this->getParamsFetcher()
+        $this->model->validateFieldExistance($this->getParamsFetcher()
             ->getParam(FIELD_FIELD_NAME));
 
         $field = Security::getStringValue($this->getParamsFetcher()->getParam(FIELD_FIELD_NAME));
 
         $where = Filter::addFilterCondition([]);
 
-        return $this->getModel()->recordsCountByField($domainId, $field, $where);
+        return $this->model->recordsCountByField($domainId, $field, $where);
     }
 
     /**
@@ -313,7 +314,7 @@ class CrudServiceLogic extends ServiceLogic
     public function fields(): array
     {
         return [
-            'fields' => $this->getModel()->getFields()
+            'fields' => $this->model->getFields()
         ];
     }
 
@@ -326,8 +327,8 @@ class CrudServiceLogic extends ServiceLogic
     {
         $record = [];
 
-        foreach ($this->getModel()->getFields() as $name) {
-            if ($this->getModel()->getFieldType($name) == 'custom') {
+        foreach ($this->model->getFields() as $name) {
+            if ($this->model->getFieldType($name) == 'custom') {
                 // you need to create your own handlers for the custom type
                 continue;
             }

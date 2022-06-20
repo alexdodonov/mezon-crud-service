@@ -35,7 +35,6 @@ trait CrudServiceLogicTestsTrait
             'recordsCountByField',
             'newRecordsSince',
             'updateBasicFields',
-            'setFieldForObject',
             'hasField',
             'getFields',
             'fetchRecordsByIds'
@@ -58,7 +57,7 @@ trait CrudServiceLogicTestsTrait
                 ],
                 'record'
             ])
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 
@@ -84,9 +83,9 @@ trait CrudServiceLogicTestsTrait
     protected function getServiceLogic($model): CrudServiceLogic
     {
         // TODO remove one usage
-        $transport = new ServiceConsoleTransport(new MockProvider());
+        $transport = new ServiceConsoleTransport();
 
-        return new CrudServiceLogic($transport->getParamsFetcher(), $transport->getSecurityProvider(), $model);
+        return new CrudServiceLogic($transport->getParamsFetcher(), new MockProvider(), $model);
     }
 
     /**
@@ -99,15 +98,15 @@ trait CrudServiceLogicTestsTrait
     protected function getServiceLogicMock($model): object
     {
         // TODO remove one usage
-        $transport = new ServiceConsoleTransport(new MockProvider());
+        $transport = new ServiceConsoleTransport();
 
         return $this->getMockBuilder(CrudServiceLogic::class)
             ->setConstructorArgs([
             $transport->getParamsFetcher(),
-            $transport->getSecurityProvider(),
+            new MockProvider(),
             $model
         ])
-            ->setMethods([
+            ->onlyMethods([
             'getSelfIdValue',
             'hasPermit'
         ])
@@ -116,13 +115,16 @@ trait CrudServiceLogicTestsTrait
 
     /**
      * Method creates service logic for list methods testing
+     *
+     * @param
+     *            CrudServiceLogic service logic object
      */
-    protected function setupLogicForListMethodsTesting()
+    protected function setupLogicForListMethodsTesting(): CrudServiceLogic
     {
         // TODO replace with PdoCrudMock
         $connection = $this->getMockBuilder(PdoCrud::class)
             ->disableOriginalConstructor()
-            ->setMethods([
+            ->onlyMethods([
             'select'
         ])
             ->getMock();
@@ -149,10 +151,9 @@ trait CrudServiceLogicTestsTrait
      */
     public function getServiceLogicForModel(CrudServiceModel $model): CrudServiceLogic
     {
-        $securityProvider = new MockProvider();
-        $serviceTransport = new ServiceHttpTransport($securityProvider);
+        $serviceTransport = new ServiceHttpTransport();
 
-        return new CrudServiceLogic($serviceTransport->getParamsFetcher(), $securityProvider, $model);
+        return new CrudServiceLogic($serviceTransport->getParamsFetcher(), new MockProvider(), $model);
     }
 
     /**
@@ -168,5 +169,19 @@ trait CrudServiceLogicTestsTrait
         $model->setConnection($connection);
 
         return $this->getServiceLogicForModel($model);
+    }
+
+    /**
+     * Method returns selecting pdo mock
+     *
+     * @param array $return
+     *            return data
+     * @return PdoCrudMock pdo mock
+     */
+    public function getSelectingConnection(array $return): PdoCrudMock
+    {
+        $connection = new PdoCrudMock();
+        $connection->selectResults[] = $return;
+        return $connection;
     }
 }

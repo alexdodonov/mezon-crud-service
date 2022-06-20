@@ -10,7 +10,6 @@ use Mezon\Service\ServiceModel;
 use Mezon\PdoCrud\Tests\PdoCrudMock;
 use Mezon\CrudService\CrudServiceModel;
 use PHPUnit\Framework\TestCase;
-use Mezon\Headers\Layer;
 use Mezon\Conf\Conf;
 
 /**
@@ -20,13 +19,13 @@ use Mezon\Conf\Conf;
  * @subpackage CrudServiceLogicUnitTests
  * @author Dodonov A.A.
  * @version v.1.0 (2019/08/17)
- * @copyright Copyright (c) 2019, aeon.org
+ * @copyright Copyright (c) 2019, http://aeon.su
  */
 
 /**
  * Common CrudServiceLogic unit tests
  *
- * @group baseTests
+ * @psalm-suppress PropertyNotSetInConstructor
  */
 class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
 {
@@ -102,7 +101,7 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
         $serviceLogic = $this->getServiceLogic($serviceModel);
 
         // test body
-        $records = $serviceLogic->lastRecords(1);
+        $records = $serviceLogic->lastRecords();
 
         // assertions
         $this->assertEquals(1, count($records), 'Invalid amount of records was returned');
@@ -126,6 +125,7 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
         $serviceLogic = $this->getServiceLogicForModel($model);
 
         // test body
+        /** @var array<int, array{records_count: int}> $counters */
         $counters = $serviceLogic->recordsCountByField();
 
         // assertions
@@ -146,9 +146,10 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
         global $argv;
         $argv['field'] = 'unexisting';
 
-        // test body and assertions
+        // assertions
         $this->expectException(\Exception::class);
 
+        // test body
         $serviceLogic->recordsCountByField();
     }
 
@@ -157,14 +158,14 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
      */
     public function testConstruct(): void
     {
-        $serviceTransport = new ServiceHttpTransport(new MockProvider());
+        $serviceTransport = new ServiceHttpTransport();
         $serviceLogic = new CrudServiceLogic(
             $serviceTransport->getParamsFetcher(),
-            $serviceTransport->getSecurityProvider(),
+            $securityProvider = new MockProvider(),
             new ServiceModel());
 
         $this->assertInstanceOf(RequestParamsInterface::class, $serviceLogic->getParamsFetcher());
-        $this->assertInstanceOf(MockProvider::class, $serviceLogic->getSecurityProvider());
+        $this->assertInstanceOf(MockProvider::class, $securityProvider);
     }
 
     /**
@@ -175,9 +176,9 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
         // setup
         $connection = new PdoCrudMock();
         $connection->selectResults[] = [
-            1,
-            2,
-            3
+            [],
+            [],
+            []
         ];
         $serviceLogic = $this->getServiceLogicForConnection($connection);
 
@@ -238,9 +239,10 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
 
         $serviceLogic = $this->getServiceLogic($serviceModel);
 
-        // test body
+        // assertions
         $this->expectException(\Exception::class);
 
+        // test body
         $serviceLogic->newRecordsSince();
     }
 
@@ -329,8 +331,8 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
         // setup
         $connection = new PdoCrudMock();
         $connection->selectResults[] = [
-            1,
-            2
+            [],
+            []
         ];
         $serviceLogic = $this->getServiceLogicForConnection($connection);
 
@@ -339,45 +341,17 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
     }
 
     /**
-     * Testing all records generation with no permits
-     */
-    public function testAllNoPermit(): void
-    {
-        // setup
-        $serviceModel = $this->getServiceModelMock();
-        $serviceModel->method('hasField')->willReturn(true);
-        $_GET['cross_domain'] = 1;
-
-        $serviceLogic = $this->getServiceLogicMock($serviceModel);
-        $serviceLogic->method('hasPermit')->willReturn(false);
-
-        // assertions
-        $this->expectException(\Exception::class);
-
-        // test body
-        $serviceLogic->all();
-    }
-
-    /**
      * Testing 'fields' method
      */
     public function testFields(): void
     {
         // setup
-        $serviceModel = $this->getServiceModelMock();
-        $serviceModel->method('getFields')->willReturn([
-            'id' => [
-                'type' => 'integer'
-            ]
-        ]);
-
-        $serviceLogic = $this->getServiceLogicMock($serviceModel);
+        $serviceLogic = $this->getServiceLogicForConnection(new PdoCrudMock());
 
         // test body
         $result = $serviceLogic->fields();
 
         // assertions
-        $this->assertTrue(is_array($result));
         $this->assertTrue(is_array($result['fields']));
     }
 
@@ -387,14 +361,13 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
     public function testExact(): void
     {
         // setup
-        $serviceModel = $this->getServiceModelMock();
-        $serviceModel->method('fetchRecordsByIds')->willReturn([
+        $_GET['id'] = 1;
+
+        $serviceLogic = $this->getServiceLogicForConnection($this->getSelectingConnection([
             [
                 'id' => 1
             ]
-        ]);
-        $_GET['id'] = 1;
-        $serviceLogic = $this->getServiceLogicMock($serviceModel);
+        ]));
 
         // test body
         $result = $serviceLogic->exact();
@@ -409,17 +382,17 @@ class CrudServiceLogicUnitTests extends ServiceLogicUnitTests
     public function testExactList(): void
     {
         // setup
-        $serviceModel = $this->getServiceModelMock();
-        $serviceModel->method('fetchRecordsByIds')->willReturn([
-            [
-                'id' => 1
-            ],
-            [
-                'id' => 2
-            ]
-        ]);
         $_GET['id'] = 1;
-        $serviceLogic = $this->getServiceLogicMock($serviceModel);
+
+        $serviceLogic = $this->getServiceLogicForConnection(
+            $this->getSelectingConnection([
+                [
+                    'id' => 1
+                ],
+                [
+                    'id' => 2
+                ]
+            ]));
 
         // test body
         $result = $serviceLogic->exactList();

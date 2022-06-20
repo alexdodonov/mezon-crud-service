@@ -10,11 +10,13 @@ use PHPUnit\Framework\TestCase;
  * @subpackage CreateRecordLogicUnitTests
  * @author Dodonov A.A.
  * @version v.1.0 (2020/11/18)
- * @copyright Copyright (c) 2020, aeon.org
+ * @copyright Copyright (c) 2020, http://aeon.su
  */
 
 /**
  * Create record logic unit tests
+ * 
+ * @psalm-suppress PropertyNotSetInConstructor
  */
 class CreateRecordLogicUnitTest extends TestCase
 {
